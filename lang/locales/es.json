@@ -1,0 +1,351 @@
+{
+    "header": {
+        "shopByDepartment": "Comprar por departamento",
+        "wellcomeText": "¡Bienvenido a la tienda de compras en línea de Arcones y Canastas!",
+        "login": "Acceso",
+        "register": "Registro",
+        "navigationExtra": {
+            "sellOnMartfury": "Vender en Martfury",
+            "trackYourOrder": "Rastrea tu orden"
+        },
+        "miniCart": {
+            "subTotal": "Total parcial:",
+            "viewCart": "Ver carrito",
+            "checkout": "Revisa",
+            "noProduct": "No hay productos en el carrito"
+        }
+    },
+    "footer": {
+        "copyright": "&Copiar; 2020 Martfury. Reservados todos los derechos",
+        "widgetHeading": {
+            "quickLink": "Enlaces rápidos",
+            "company": "Compañía",
+            "bussiness": "Negocio",
+            "contactUs": "Contáctenos"
+        },
+        "widgetLinks": {
+            "policy": "Política",
+            "termAndCondition": "Término y condición",
+            "shipping": "Transporte",
+            "return": "Regreso",
+            "faqs": "Preguntas frecuentes",
+            "aboutUs": "Sobre nosotros",
+            "affilate": "Afiliarse",
+            "career": "Carrera profesional",
+            "contact": "Contacto",
+            "ourPress": "Nuestra Prensa",
+            "checkout": "Revisa",
+            "myAccount": "Mi cuenta",
+            "shop": "Tienda"
+        }
+    },
+    "menu": {
+        "navigationList": {
+            "menu": "Menú",
+            "categories": "Categorías",
+            "search": "Buscar",
+            "cart": "Carro"
+        },
+        "mainMenu": {
+            "home": "Hogar",
+            "marketplaceFullWidth": "Marketplace Ancho completo",
+            "homeAutoParts": "Inicio Autopartes",
+            "homeTechnology": "Tecnología para el hogar",
+            "homeOrganic": "Inicio Orgánico",
+            "homeElectronic": "Hogar Electrónico",
+            "homeFurniture": "Muebles del hogar",
+            "shop": "Tienda",
+
+            "catalogPages": "",
+            "shopDefault": "Comprar por defecto",
+            "shopWithoutBanner": "Comprar sin banner",
+
+            "ecomercePages": "",
+            "shoppingCart": "Carrito de compras",
+            "checkout": "Revisa",
+            "whishlist": "Lista de deseos",
+            "compare": "Comparar",
+            "orderTracking": "Rastreo de orden",
+            "myAccount": "Mi cuenta",
+            "loginOrregister": "Iniciar sesión / Registrarse",
+            "pages": "Paginas",
+            "basicPage": "",
+            "aboutUs": "Sobre nosotros",
+            "contact": "Contacto",
+            "faqs": "Preguntas frecuentes",
+            "politics": "Politicas",
+            "TermCon":"Terminos y condicones",
+            "vendorPages": "",
+            "vendorStore": "Armar canasta",
+            
+            "blogs": "Blogs",
+            "blogLayout": "",
+            "grid": "Blog",
+            
+            "smallThumb": "Pulgar pequeño",
+            "leftSidebar": "Barra lateral izquierda",
+            "rightSidebar": "Barra lateral derecha",
+            "singleBlog": "Blog único"
+    
+        },
+        "menuCategories": {
+            "hotPromotions": "Promociones calientes",
+            "consumerElectronic": "Consumidor de electronicos",
+            "electronic": "Electrónico",
+            "homeAudioAndTheathers": "Home Audio y Teatros",
+            "tvAndVideos": "TV y videos",
+            "cameraphotosAndVideos": "Cámara, fotos y videos",
+            "cellphonesAndAccessories": "Teléfonos móviles y accesorios",
+            "headphone": "Auricular",
+            "videosgames": "Videojuegos",
+            "wirelessSpeakers": "Altavoces inalámbricos",
+            "officeElectronic": "Oficina Electrónica",
+            "accessoriesAndParts": "Accesorios y repuestos",
+            "digitalCables": "Cables digitales",
+            "audioAndVideoCables": "Cables de audio y video",
+            "batteries": "Pilas",
+            "clothingAndapparel": "Ropa e indumentaria",
+            "HomeGardenAndKitchen": "Hogar, jardín y cocina",
+            "healthAndBeauty": "Salud y Belleza",
+            "yewelryAndWatches": "Joyas y relojes",
+            "computerAndTechnology": "Tecnologia computacional",
+            "computerAndTechnologies": "Informática y tecnologías",
+            "computerAndTablets": "Computadora y tabletas",
+            "laptop": "Ordenador portátil",
+            "monitors": "Monitores",
+            "networking": "Redes",
+            "driveAndStorages": "Drive y almacenamientos",
+            "computerComponents": "Componentes de la computadora",
+            "securityAndProtection": "Protección de seguridad",
+            "gamingLaptop": "Laptop para juegos",
+            "accessories": "Accesorios",
+            "babiesAndMoms": "Bebés y mamás",
+            "sportAndutdoor": "Deporte y al aire libre",
+            "phonesAndAccessories": "Teléfonos y accesorios",
+            "booksAndOffice": "Libros y oficina",
+            "carsAndMotocycles": "Coches y motos",
+            "homeImproments": "Inicio Improments",
+            "vouchersAndServices": "Vales y servicios"
+        }
+    },
+    "common": {
+        "viewAll": "Ver todo",
+        "subscribe": "Suscribir",
+        "categories": "Categorias",
+        "siteFeatures": {
+            "freeDelivery": {
+                "key": "Entrega gratis",
+                "value": "Para todos los pedidos superiores a $ 99"
+            },
+            "dateReturn": {
+                "key": "90 días de devolución",
+                "value": "Si los bienes tienen problemas"
+            },
+            "securePayment": {
+                "key": "Pago seguro",
+                "value": "Pago 100% seguro"
+            },
+            "support": {
+                "key": "Soporte 24/7",
+                "value": "Soporte dedicado"
+            },
+            "giftService": {
+                "key": "Servicio de obsequios",
+                "value": "Servicio de regalo de apoyo"
+            }
+        },
+        "downloadApp": {
+            "heading": "¡Descarga la aplicación Martfury ahora!",
+            "content": "Compra más rápida y fácilmente con nuestra aplicación. Obtenga un enlace para descargar la aplicación en su teléfono"
+        },
+        "newsLetter": {
+            "heading": "Boletin informativo",
+            "content": "Suscríbase para obtener información sobre productos y cupones"
+        }
+    },
+    "homeDefault": {
+        "consumerElectronics": {
+            "heading": "Electrónica de consumo",
+            "links": {
+                "newArrivals": "Los recién llegados",
+                "bestSeller": "Mejor vendido",
+                "mustPopular": "Debe ser popular"
+            }
+        },
+        "clothing": {
+            "heading": "Ropa"
+        },
+        "gardenAndKitchen": {
+            "heading": "Hogar, jardín y cocina"
+        },
+        "newArrivals": {
+            "heading": "Nuevas llegadas calientes",
+            "links": {
+                "technologies": "Tecnologias",
+                "electronic": "Electrónico",
+                "furnitures": "Mobiliario",
+                "clothingAndApprel": "Ropa e indumentaria",
+                "healthAndBeauty": "Salud y Belleza"
+            }
+        }
+    },
+    "autopart": {
+        "bestSellerBrands": "MARCAS MÁS VENDIDAS",
+        "topCategories": "categorías principales del mes",
+        "dealHotToday": "Oferta de calor hoy",
+        "topBestSeller": "Top 20 Best Seller",
+        "recommendedForYou": "RECOMENDADO PARA TI",
+        "bestSellers": "Más vendidos",
+        "newArrivals": "Los recién llegados",
+        "topRated": "Los más valorados",
+        "trendingProducts": "Productos de tendencia"
+    },
+    "electronic": {
+        "bestSellerInTheLastMonth": "Mejor vendido en el último mes",
+        "dealHotToday": "Oferta de calor hoy",
+        "homeElectronics": "Electrónica Doméstica",
+        "link": {
+            "top20": "Top 20",
+            "tvTelevisions": "Televisores de TV",
+            "speakers": "Altavoces",
+            "airConditions": "Condiciones del aire",
+            "cameraAndVideos": "Cámaras y videos",
+            "videos": "Videos",
+            "projectors": "Proyectores",
+            "digitalCameras": "Cámaras digitales",
+            "printersAndScanners": "Impresoras y escáneres",
+            "accessories": "Accesorios",
+            "computersAndTechnology": "Computadoras y tecnología",
+            "laptop": "Ordenador portátil",
+            "desktopPC": "PC de escritorio",
+            "smartphone": "Teléfono inteligente",
+            "mainboards": "Placas base",
+            "pCGaming": "Juegos de PC",
+            "smart": "Inteligente",
+            "tVLed": "TV LED",
+            "tVs": "Televisores ",
+            "sonySpeakers": "Altavoces Sony",
+            "panasonicRefrigerators": "Refrigeradores Panasonic"
+        }
+    },
+    "furniture": {
+        "bestSellerBrands": "MARCAS MÁS VENDIDAS",
+        "bestSellerProduct": "PRODUCTOS MÁS VENDIDOS",
+        "trendingProducts": "Productos de tendencia"
+    },
+    "marketPlace": {
+        "dealHotToday": "Oferta de calor hoy"
+    },
+    "shop": {
+        "productFound": "Productos encontrados",
+        "dealHot": "Las mejores ofertas Super Hot Today",
+        "bestSaleOfMonth": "Mejor vendido en los últimos meses",
+        "newArrivals": "Los recién llegados",
+        "bestSeller": "Artículos más vendidos",
+        "recommendedItems": "Elementos recomendados",
+        "shopAll": "Comprar todo",
+        "heading": {
+            "consumerElectrics": "Electricidad de consumo",
+            "clothingAndApparel": "Ropa e indumentaria",
+            "bestSellerItems": "Artículos más vendidos"
+        },
+        "breadCrumb": {
+            "home": "Hogar",
+            "shopDefault": "Comprar por defecto ",
+            "shopCarousel": "Carrusel de la tienda"
+        },
+        "categories": {
+            "links": {
+                "clothingAndApparel": "Ropa e indumentaria",
+                "gardenAndKitchen": "Jardín y Cocina",
+                "consumerElectrics": "Electricidad de consumo",
+                "healthAndBeauty": "Salud y Belleza",
+                "computersAndTechnologies": "Computadoras y tecnologías",
+                "jewelryAndWatches": "joyas y relojes",
+                "phonesAndAccessories": "Teléfonos y accesorios",
+                "sportAndOutdoor": "Deporte y al aire libre",
+                "babiesAndMoms": "Bebés y mamás",
+                "booksAndOffice": "Libros y oficina",
+                "carsAndMotocycles": "Coches y motos",
+                "allProducts": "Todos los productos",
+                "newArrivals": "Los recién llegados",
+                "bestSellers": "Más vendidos"
+            }
+        },
+        "widget": {
+            "categories": "Categorias",
+            "byBrands": "Por marcas",
+            "byPrice": "Por precio",
+            "price": "Precio"
+        }
+    },
+    "product": {
+        "customerBought": "Los clientes que compraron este artículo también compraron",
+        "relatedProducts": "Productos relacionados",
+        "widget": {
+            "shippingWorldwide": "Envío a nivel mundial",
+            "freeReturn": "Devolución gratuita en 7 días si es elegible, muy fácil",
+            "supplier": "El proveedor da facturas por este producto.",
+            "payOnline": "Pague en línea o al recibir un biens",
+            "sellOnMartfury": "Vender en Martfury",
+            "registerNow": "Regístrate ahora !"
+        }
+    },
+    "blog": {
+        "categories": {
+            "all": "Todos",
+            "lifeStyle": "Estilo de vida",
+            "technology": "Tecnología",
+            "entertaiment": "Entretenimiento",
+            "business": "Negocio",
+            "others": "Otros",
+            "fashion": "Moda"
+        }
+    },
+    "page": {
+        "about": {
+            "awardsAndRecognition": "Premios y reconocimientos",
+            "awardDesc": "Los líderes de la industria y las personas influyentes reconocen a Overstock como una de las empresas minoristas más dignas de confianza en los EE. UU., Y ocupa un lugar destacado en la satisfacción de los clientes y los empleados "
+        },
+        "contact": {
+            "getInTouch": "Ponerse en contacto",
+            "contactUsForAnyQuestions": "Contáctanos para cualquier pregunta",
+            "contactDirectly": "Contactar directamente ",
+            "headQuater": "Cuater de cabeza",
+            "workWithUs": "Trabaja con nosotros",
+            "sendCv": "Envíe su CV a nuestro correo electrónico",
+            "customerService": "Servicio al Cliente",
+            "mediaRelations": "Relaciones con los medios",
+            "vendorSupport": "Soporte de proveedores",
+            "form": {
+                "name": "Nombre",
+                "email": "Correo electrónico",
+                "subject": "Sujeto",
+                "message": "Mensaje",
+                "sendMessage": "Enviar mensaje"
+            }
+        }
+    },
+    "account": {
+        "checkoutInformation": "Información de pago",
+        "compare": {
+            "compareProduct": "Comparar Productos",
+            "compareEmpty": "¡La lista de comparación está vacía!"
+        },
+        "orderTracking": {
+            "heading": "Rastreo de orden",
+            "desc": "Para rastrear su pedido, ingrese su ID de pedido en el cuadro a continuación y presione el botón Seguir. Esto se le proporcionó en su recibo y en el correo electrónico de confirmación que debería haber recibido. ",
+            "orderId": "Solicitar ID",
+            "billingEmail": "Correo Electrónico de Facturas",
+            "trackYourOrder": "Rastrea tu orden"
+        },
+        "quicklink": {
+            "accountInformation": "Información de la cuenta",
+            "notifications": "Notificaciones",
+            "invoices": "Facturas",
+            "address": "Dirección",
+            "recentViewedProduct": "Dirección",
+            "wishlist": "Dirección"
+        }
+    }
+}
