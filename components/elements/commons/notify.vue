@@ -2,7 +2,7 @@
     <client-only>
         <notifications
             group="addCartSuccess"
-            :duration="2000"
+            :duration="5000"
             :width="300"
             animation-name="fade-left"
             position="top right"
@@ -25,7 +25,7 @@
 </template>
 <script>
 export default {
-    name: 'Notify'
+    name: 'Notify',
 };
 </script>
 

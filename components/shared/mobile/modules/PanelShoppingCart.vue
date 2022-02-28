@@ -13,6 +13,16 @@
         <div class="ps-panel__content">
             <div class="ps-cart--mobile">
                 <div class="ps-cart__content">
+                    <div class="ps-section__content">
+                <table-shopping-cart v-if="cartProducts !== null && cartItems !== null" />
+                <p v-else>Carrito de compras vacio</p>
+                <div class="ps-section__cart-actions">
+                    <nuxt-link to="/shop" class="ps-btn">
+                        <i class="icon-arrow-left mr-2"></i>
+                        Volver a la tienda
+                    </nuxt-link>
+                </div>
+            </div>
                     <div v-if="cartProducts !== null" class="ps-cart__items">
                         <product-mini-cart
                             v-for="product in cartProducts"
@@ -60,22 +70,24 @@
 <script>
 import { mapState } from 'vuex';
 import ProductMiniCart from '~/components/elements/product/ProductMiniCart';
+import TableShoppingCart from '~/components/partials/account/modules/TableShoppingCart';
 
 export default {
     name: 'PanelShoppingCart',
-    components: { ProductMiniCart },
+    components: { ProductMiniCart, TableShoppingCart },
     computed: {
         ...mapState({
-            cart: state => state.cart,
-            cartProducts: state => state.product.cartProducts
-        })
+            cart: (state) => state.cart,
+            cartProducts: (state) => state.product.cartProducts,
+            cartItems: (state) => state.cart.cartItems,
+        }),
     },
     methods: {
         handleClosePanel() {
             this.$store.commit('app/setCurrentDrawerContent', null);
             this.$store.commit('app/setAppDrawer', false);
-        }
-    }
+        },
+    },
 };
 </script>
 

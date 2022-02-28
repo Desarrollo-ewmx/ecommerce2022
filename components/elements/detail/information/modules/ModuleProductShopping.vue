@@ -39,7 +39,6 @@
             </figcaption>
     </div>
 </template>
-
 <script>
 import { mapState, mapActions } from 'vuex';
 
@@ -63,6 +62,7 @@ export default {
         },
         ...mapState({
             cartItems: (state) => state.cart.cartItems,
+            cotizaciones: (state) => state.cotizacion.cotizaciones,
         }),
     },
     data() {
@@ -80,22 +80,31 @@ export default {
             this.$store.dispatch('cotizacion/addcantidad', this.quantity);
         },
         handleAddToCart(isBuyNow) {
-            const cartItemsOnCookie = this.$cookies.get('cart', {
-                parseJSON: true,
-            });
-            let existItem;
-            if (cartItemsOnCookie) {
-                existItem = cartItemsOnCookie.cartItems.find(
-                    (item) => item.id === this.product.id
-                );
-                console.log(this.handleAddToCart);
+            if (this.cotizaciones.length == 0) {
+                this.$notify({
+                    group: 'addCartSuccess',
+                    title: 'Error',
+                    text: 'No existe una cotizacion para agregar el producto, por favor cree una',
+                    type: 'danger',
+                });
+            } else {
+                const cartItemsOnCookie = this.$cookies.get('cart', {
+                    parseJSON: true,
+                });
+                let existItem;
+                if (cartItemsOnCookie) {
+                    existItem = cartItemsOnCookie.cartItems.find(
+                        (item) => item.id === this.product.id
+                    );
+                    console.log(this.handleAddToCart);
+                }
+                let item = {
+                    id: this.product.id,
+                    quantity: this.quantity,
+                    price: this.product.price,
+                };
+                this.addItemToCart(item);
             }
-            let item = {
-                id: this.product.id,
-                quantity: this.quantity,
-                price: this.product.price,
-            };
-            this.addItemToCart(item);
         },
         addItemToCart(payload) {
             this.quantity = 1;
@@ -104,7 +113,7 @@ export default {
             console.log(this.cartItems);
             this.$notify({
                 group: 'addCartSuccess',
-                title: 'Success!',
+                title: 'Agregado a su carrito',
                 text: `${this.product.title} - añadido a la cotización!`,
             });
         },

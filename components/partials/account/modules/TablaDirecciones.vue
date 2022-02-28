@@ -1,6 +1,6 @@
 <template lang="html">
     <div>
-        <div class="table-responsive-sm">
+        <div class="table-responsive">
             <table
                 class="table table-hover table-fixed ps-table--shopping-cart"
             >

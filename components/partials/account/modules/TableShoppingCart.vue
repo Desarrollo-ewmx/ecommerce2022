@@ -10,10 +10,10 @@
             </tr>
         </thead>
         <tbody>
-            <pre>{{ cartItems }}</pre>
+         <!---   <pre>{{ cartItems }}</pre> ---->
             <pre>{{ total }}</pre>
             <!-- FIXME: Cannot read property 'id' of undefined -->
-            <tr v-for="(product, index) in cartProducts" :key="product.id" >
+            <tr v-for="(product, index) in cartProducts" :key="product.index" >
                 <!-- <pre>{{ product }}</pre> -->
                 <td data-label="Product">
                     <product-shopping-cart :product="product"/> <!-- {{ `(${index} - indice del producto)` }} {{ `(${product.id} - id del producto)`  }} -->
@@ -146,21 +146,30 @@ export default {
         },
 
         async loadCartProducts() {
+            console.log('otener cookies');
             const cookieCart = this.$cookies.get('cart', { parseJSON: true });
             let queries = [];
+            console.log('recorriendo carrito');
             cookieCart.cartItems.forEach((item) => {
                 queries.push(item.id);
             });
+            console.log('en caso de carrito no vacio');
+            location.reload();
             if (this.cartItems.length > 0) {
                 // Comparar con productMiniCart
+                console.log('empezamos ciclo');
                 const response = await this.$store.dispatch(
+                    // <----- fix this
                     'product/getCartProducts',
                     queries
                 );
+                console.log('obtenemos carrito');
+                console.log('carrito actualizado');
                 if (response) {
                     this.$store.commit('cart/setLoading', false);
                 }
             } else {
+                console.log('carrito no actualizado');
                 this.$store.commit('product/setCartProducts', null);
             }
         },
@@ -173,6 +182,7 @@ export default {
             this.$store.dispatch('cart/removeProductFromCart', cartItem);
             this.$store.commit('cart/setLoading', true);
             this.loadCartProducts();
+            //location.reload();
         },
     },
 };

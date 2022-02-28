@@ -6,32 +6,11 @@
                 <i>{{ cotizaciones.length }}</i>
             </span>
         </a>
-        <div class="ps-cart__content">
-            <div class="ps-cart__items">
-                <pre>{{ cotizaciones }}</pre>
-            </div>
-        </div>
         <div v-if="cotizaciones.length > 0" class="ps-cart__content">
             <div class="ps-cart__items">
-                <template>
-                    
-                </template>
-            </div>
-        </div>
-        <!-- <div v-if="total > 0" class="ps-cart__content">
-            <div class="ps-cart__items">
-                <template v-if="loading === true">
-                    <loading />
-                </template>
-                <template v-else>
-                    <product-mini-cart
-                        v-for="product in cartProducts"
-                        :product="product"
-                        :key="product.id"
-                    />
-                </template>
-            </div>
+                   
             <div class="ps-cart__footer">
+              <!---  <h2>{{ cotizaciones.name }}</h2> ---->
                 <h3>
                     {{ $t('header.miniCart.subTotal') }}
                     <strong>${{ amount }}</strong>
@@ -49,13 +28,16 @@
                     </div>
                 </figure>
             </div>
+             
+        </div>
         </div>
         <div v-else class="ps-cart__content">
             <div class="ps-cart__items no-products">
                 {{ $t('header.miniCart.noProduct') }}
             </div>
-        </div> -->
-    </div>
+        </div> 
+               
+            </div>
 </template>
 
 <script>
@@ -69,17 +51,17 @@ export default {
     components: { Loading, ProductMiniCart },
     computed: {
         ...mapState({
-            total: state => state.cart.total,
-            amount: state => state.cart.amount,
-            loading: state => state.cart.loading,
-            cartItems: state => state.cart.cartItems,
-            cartProducts: state => state.product.cartProducts,
-            cotizaciones: state => state.cotizacion.cotizaciones
+            total: (state) => state.cart.total,
+            amount: (state) => state.cart.amount,
+            loading: (state) => state.cart.loading,
+            cartItems: (state) => state.cart.cartItems,
+            cartProducts: (state) => state.product.cartProducts,
+            cotizaciones: (state) => state.cotizacion.cotizaciones,
         }),
         baseUrl() {
             return baseUrl;
-        }
-    }
+        },
+    },
 };
 </script>
 

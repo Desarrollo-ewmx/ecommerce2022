@@ -7,12 +7,12 @@
                     <ul class="ps-tab-list">
                         <li class="active">
                             <nuxt-link to="/account/login">
-                                Login
+                                Iniciar sesion
                             </nuxt-link>
                         </li>
                         <li>
                             <nuxt-link to="/account/register">
-                                Register
+                                Registrarse
                             </nuxt-link>
                         </li>
                     </ul>
@@ -34,7 +34,7 @@ export default {
     components: {
         HeaderMobile,
         Login,
-        BreadCrumb
+        BreadCrumb,
     },
     transition: 'zoom',
     data: () => {
@@ -42,14 +42,14 @@ export default {
             breadCrumb: [
                 {
                     text: 'Home',
-                    url: '/'
+                    url: '/',
                 },
                 {
-                    text: 'Login'
-                }
-            ]
+                    text: 'Login',
+                },
+            ],
         };
-    }
+    },
 };
 </script>
 

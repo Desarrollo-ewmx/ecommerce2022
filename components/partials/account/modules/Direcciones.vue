@@ -7,8 +7,8 @@
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
 </svg>
                 </div>
-                <div class="col-md-2 mb-12 mr-4">
-                    <label  class="mb-7 text-center d-flex justify-content-center align-items-center">Alias de la direccion</label>
+                <div class="col-md-2 mb-4 mr-2">
+                    <label  class="mb-6 text-center d-flex justify-content-center align-items-center">Alias de dir.</label>
                     <b-form-input v-model="direccionarcon.aliasArc" type="text" class="form-control" id="validacionDirec" required>
                         </b-form-input>
                 </div>
@@ -104,6 +104,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
 
 export default {
     name: 'Direcciones',

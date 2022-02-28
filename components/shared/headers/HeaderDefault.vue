@@ -1,10 +1,10 @@
 <template lang="html">
-    <header class="header header--1" data-sticky="true" id="headerSticky">
+    <header class="header header--1" data-sticky="true" id="headerSticky" >
         <div class="header__top">
             <div class="ps-container">
                 <div class="header__left">
-                    <nuxt-link to="/" class="ps-logo">
-                        <img src="/img/logo_light.png" alt="martfury" />
+                    <nuxt-link to="/" class="ps-logo" >
+                        <img src="/img/cya.png" alt="CYA" class="py-0 px-13"/>
                     </nuxt-link>
                     <div class="menu--product-categories">
                         <div class="menu__toggle">
@@ -40,11 +40,11 @@ export default {
         MenuCategories,
         NavigationDefault,
         HeaderActions,
-        SearchHeader
+        SearchHeader,
     },
     mounted() {
         window.addEventListener('scroll', stickyHeader);
-    }
+    },
 };
 </script>
 
@@ -52,6 +52,8 @@ export default {
 .header--1 {
     .header__top {
         background-color: $color-1st;
+
+        height: 100px;
     }
 }
 </style>

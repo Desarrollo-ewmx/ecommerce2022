@@ -24,7 +24,15 @@ import HeaderMobile from '~/components/shared/mobile/HeaderMobile';
 import Newsletters from '~/components/partials/commons/Newsletters';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
 export default {
-    components: { FooterDefault, Newsletters, HeaderMobile, HeaderDefault, MobileDrawer, NavigationList, Notify }
+    components: {
+        FooterDefault,
+        Newsletters,
+        HeaderMobile,
+        HeaderDefault,
+        MobileDrawer,
+        NavigationList,
+        Notify,
+    },
 };
 </script>
 

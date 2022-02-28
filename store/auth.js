@@ -1,10 +1,30 @@
+import Repository, { serializeQuery } from '~/repositories/Repository.js';
+import { apiURL } from '~/repositories/Repository';
+
 export const state = () => ({
-    isLoggedIn: false
+    isLoggedIn: false,
+    correo: null,
+    armados: [],
+    nombre: null
 });
 
 export const mutations = {
     setIsLoggedIn(state, payload) {
         state.isLoggedIn = payload;
+    },
+    setNombre(state, payload) {
+        state.nombre = payload;
+    },
+    setUsuario(state, payload) {
+        state.correo = payload;
+    },
+    deleteUsuario(state) {
+        state.correo = null;
+        state.nombre = null;
+        state.isLoggedIn = false;
+    },
+    setArmados(state, payload) {
+        state.armados = payload;
     }
 };
 
@@ -19,5 +39,75 @@ export const actions = {
             path: '/',
             maxAge: 60 * 60 * 24 * 7
         });
+    },
+
+    async setsesion({ commit, state }, payload) {
+        try {
+            const response = await Repository.post(
+                `${apiURL}/login?email=${payload.username}&password=${payload.password}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            const info = JSON.parse(JSON.stringify(result.data));
+            console.log('Obtuve esto: ' + info.nom);
+            commit('setUsuario', payload.username);
+            this.$cookies.set('user', state.correo);
+            console.log(this.$cookies.get('user'));
+            console.log(
+                'El payload tiene el correo: ' +
+                    payload.username +
+                    ' y la contraseña: ' +
+                    payload.password
+            );
+            const resp = 'Termine de consulta la API';
+            return resp;
+        } catch (error) {
+            console.log(error);
+            this.state.isLoggedIn = false;
+        }
+    },
+
+    deletesesion({ commit, state }) {
+        commit('deleteUsuario');
+        this.$cookies.remove('user');
+        console.log(this.$cookies.get('user'));
+    },
+    // async getarmados({ commit, state }) {
+    //     //console.log(result.data.armado);
+    //     try {
+    //         const response = await Repository.get(
+    //             `${apiURL}/muestraarmados?token=3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw `
+    //         );
+    //         const result = JSON.parse(JSON.stringify(response.data));
+    //         // const data = await arma.json();
+    //         const arma = JSON.parse(JSON.stringify(result.data.armado));
+    //         commit('setArmados', arma);
+    //         console.log(state.armados);
+    //         console.log(arma[5]);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // },
+    async setusuario({ commit, state }, payload) {
+        try {
+            console.log(payload);
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.post(
+                `${apiURL}/useradd?email=${payload.email}&nombre=${payload.nombre}&apellido=${payload.apellido}&tel_mov=${payload.tel}&password=${payload.password}&token=${token}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            // const data = await arma.json();
+            const arma = JSON.parse(JSON.stringify(result.message));
+            const resp = arma;
+            return resp;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+};
+export const getters = {
+    getauth(state) {
+        const auth = state.correo;
+        return auth;
     }
 };

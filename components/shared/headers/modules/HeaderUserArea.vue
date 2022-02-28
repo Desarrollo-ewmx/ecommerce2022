@@ -38,44 +38,45 @@ export default {
     name: 'HeaderUserArea',
     computed: {
         ...mapState({
-            isLoggedIn: state => state.auth.isLoggedIn
-        })
+            isLoggedIn: (state) => state.auth.isLoggedIn,
+        }),
     },
     data() {
         return {
             accountLinks: [
                 {
                     text: 'Account Information',
-                    url: '/account/user-information'
+                    url: '/account/user-information',
                 },
                 {
                     text: 'Notifications',
-                    url: '/account/notifications'
+                    url: '/account/notifications',
                 },
                 {
                     text: 'Invoices',
-                    url: '/account/invoices'
+                    url: '/account/invoices',
                 },
                 {
                     text: 'Address',
-                    url: '/account/addresses'
+                    url: '/account/addresses',
                 },
                 {
                     text: 'Recent Viewed Product',
-                    url: '/account/recent-viewed-product'
+                    url: '/account/recent-viewed-product',
                 },
                 {
                     text: 'Wishlist',
-                    url: '/account/wishlist'
-                }
-            ]
+                    url: '/account/wishlist',
+                },
+            ],
         };
     },
     methods: {
         handleLogout() {
             this.$store.dispatch('auth/setAuthStatus', false);
-        }
-    }
+            this.$store.dispatch('auth/deletesesion');
+        },
+    },
 };
 </script>
 

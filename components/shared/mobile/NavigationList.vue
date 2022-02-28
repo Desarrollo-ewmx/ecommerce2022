@@ -32,6 +32,20 @@
                 <i class="icon-bag2"></i>
                 <span> Cart</span>
             </a>
+            <a
+                class="navigation__item"
+                @click.prevent="gotodirections()"
+            >
+                <i class="icon-compass2"></i>
+                <span> Direcciones</span>
+            </a>
+            <a
+                class="navigation__item"
+                @click.prevent="gotocotizations()"
+            >
+                <i class="icon-paste"></i>
+                <span>cotizaciones</span>
+            </a>
         </div>
     </div>
 </template>
@@ -43,19 +57,20 @@ export default {
     name: 'NavigationList',
     computed: {
         ...mapState({
-            appDrawer: state => state.app.appDrawer
-        })
+            appDrawer: (state) => state.app.appDrawer,
+        }),
     },
     data() {
         return {
-            drawer: true
+            drawer: true,
         };
     },
+
     methods: {
         async loadCartProducts() {
             const cookieCart = this.$cookies.get('cart', { parseJSON: true });
             let queries = [];
-            cookieCart.cartItems.forEach(item => {
+            cookieCart.cartItems.forEach((item) => {
                 queries.push(item.id);
             });
             if (queries.length > 0) {
@@ -68,8 +83,14 @@ export default {
             }
             this.$store.commit('app/setCurrentDrawerContent', drawer);
             this.$store.commit('app/setAppDrawer', !this.appDrawer);
-        }
-    }
+        },
+        gotodirections() {
+            this.$router.push('/account/direcciones');
+        },
+        gotocotizations() {
+            this.$router.push('/account/cotizaciones');
+        },
+    },
 };
 </script>
 

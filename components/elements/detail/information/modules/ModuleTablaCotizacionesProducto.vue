@@ -24,7 +24,8 @@
                     <td>{{ item.quantity }}</td>
                     <td v-if="item.id == productId">{{ quantity }}</td>
                     <td v-else>1</td>
-                    <td>{{ cotizaciones[0].name }}</td>
+                    <td v-if="cotizaciones.length == 0"></td>
+                    <td v-else>{{ cotizaciones[0].name }}</td>
                     <td>Alias</td>
                     <td v-if="item.id == productId">
                         {{ item.quantity + quantity }}

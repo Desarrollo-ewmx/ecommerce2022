@@ -29,8 +29,8 @@ export default {
         NavigationList,
         HeaderMobile,
         HeaderDefault,
-        Notify
-    }
+        Notify,
+    },
 };
 </script>
 

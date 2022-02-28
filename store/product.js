@@ -100,13 +100,18 @@ export const actions = {
         payload.forEach(item => {
             if (query === '') {
                 query = `id=${item}`;
+                console.log(`id=${item}`);
             } else {
                 query = query + `&id=${item}`;
+                console.log('llevo esto' + query);
             }
         });
-        const reponse = await Repository.get(`${baseUrl}/products?${query}`)
+        console.log('reccorremos todo el payload');
+        const reponse = await Repository.get(`${baseUrl}/products?${query}`) /// <--- fix this error cannot read properties
             .then(response => {
+                console.log('antes de hacer commit');
                 commit('setCartProducts', response.data);
+                console.log('actualizamos el carrito del store');
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));

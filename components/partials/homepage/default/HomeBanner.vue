@@ -5,28 +5,31 @@
                 <div class="ps-carousel" v-swiper:mySwiper="swiperOption">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div
+                            <!-- <div
                                 class="ps-banner"
                                 :style="{
-                                    backgroundImage: `url(/img/slider/home-1/slide-1.jpg)`
+                                    backgroundImage: `url(img)`
                                 }"
-                            ></div>
+                            ></div> -->
+                            <img :src="img"/>
                         </div>
                         <div class="swiper-slide">
-                            <div
+                            <!-- <div
                                 class="ps-banner"
                                 :style="{
                                     backgroundImage: `url(/img/slider/home-1/slide-2.jpg)`
                                 }"
-                            ></div>
+                            ></div> -->
+                            <img :src="img2"/>
                         </div>
                         <div class="swiper-slide">
-                            <div
+                            <!-- <div
                                 class="ps-banner"
                                 :style="{
                                     backgroundImage: `url(/img/slider/home-1/slide-3.jpg)`
                                 }"
-                            ></div>
+                            ></div> -->
+                            <img :src="img3"/>
                         </div>
                     </div>
                     <!--Carousel controls-->
@@ -75,7 +78,27 @@ export default {
                     prevEl: '.swiper-prev',
                 },
             },
+            cya: [],
+            img: '',
+            img2: '',
+            img3: '',
+            img4: '',
+            img5: '',
         };
+    },
+    methods: {
+        async getproducts() {
+            var resp = await this.$store.dispatch('arcones/setarmados');
+            const result = this.$store.getters['arcones/getproducts'];
+            this.cya = result;
+            console.log(this.cya[5].ruta_Completa);
+            this.img = this.cya[0].ruta_Completa;
+            this.img2 = this.cya[1].ruta_Completa;
+            this.img3 = this.cya[2].ruta_Completa;
+        },
+    },
+    beforeMount() {
+        this.getproducts();
     },
 };
 </script>

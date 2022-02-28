@@ -5,7 +5,7 @@
         <home-default-deal-of-day
             v-if="collections !== null"
             collection-slug="deal-of-the-day"
-        />
+        /> 
         <home-ads-columns />
         <home-default-top-categories />
         <template v-if="collections !== null">

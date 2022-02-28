@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="ps-section__header">
                     <p>
-                        <h3>Catalogo brian</h3>
+                        <h3>Catalogo</h3>
                     </p>
                 </div>
                 <div>

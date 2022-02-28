@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="navigation__right">
-                <menu-default />
+              <!---  <menu-default />   -->
                 <ul class="navigation__extra">
                     <!-- <li>
                         <nuxt-link to="/vendor/become-a-vendor">
@@ -33,6 +33,16 @@
                     <li>
                         <nuxt-link to="/account/cotizaciones">
                             Mis Cotizaciones (WIP)
+                        </nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link to="/account/pagos">
+                            Pago
+                        </nuxt-link>
+                    </li>
+                     <li>
+                        <nuxt-link to="/account/facturacion">
+                            Facturacion
                         </nuxt-link>
                     </li>
                     <li>

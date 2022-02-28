@@ -15,21 +15,29 @@ export default {
     components: {
         HeaderMobile,
         UserInformation,
-        BreadCrumb
+        BreadCrumb,
     },
     data: () => {
         return {
             breadCrumb: [
                 {
                     text: 'Home',
-                    url: '/'
+                    url: '/',
                 },
                 {
-                    text: 'User Information'
-                }
-            ]
+                    text: 'User Information',
+                },
+            ],
         };
-    }
+    },
+    methods: {
+        beforeMount() {
+            const user = this.$cookies.get('user');
+            if ((user = null)) {
+                this.$router.push('/account/login');
+            }
+        },
+    },
 };
 </script>
 

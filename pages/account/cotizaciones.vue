@@ -22,48 +22,48 @@ import { mapState } from 'vuex';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import TablaCotizaciones from '~/components/partials/account/modules/TablaCotizaciones';
 import HeaderMobile from '~/components/shared/mobile/HeaderMobile';
-import Cotizaciones from '~/components/partials/account/modules/Cotizaciones'
+import Cotizaciones from '~/components/partials/account/modules/Cotizaciones';
 
 export default {
-    middleware: 'authentication',
+    middleware: 'validation',
     transition: 'zoom',
     components: {
         HeaderMobile,
         BreadCrumb,
         TablaCotizaciones,
-        Cotizaciones
+        Cotizaciones,
     },
     ...mapState({
-        cartItems: state => state.cart.cartItems,
-        cartProducts: state => state.product.cartProducts
+        cartItems: (state) => state.cart.cartItems,
+        cartProducts: (state) => state.product.cartProducts,
     }),
     data: () => {
         return {
             breadCrumb: [
                 {
                     text: 'Inicio',
-                    url: '/'
+                    url: '/',
                 },
                 {
-                    text: 'Cotizaciones'
-                }
-            ]
+                    text: 'Cotizaciones',
+                },
+            ],
         };
     },
     methods: {
         async loadCartProducts() {
             const cartItemsOnCookie = this.$cookies.get('cart', {
-                parseJSON: true
+                parseJSON: true,
             });
             let queries = [];
-            cartItemsOnCookie.cartItems.forEach(item => {
+            cartItemsOnCookie.cartItems.forEach((item) => {
                 queries.push(item.id);
             });
             if (queries.length > 0) {
                 await this.$store.dispatch('product/getCartProducts', queries);
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

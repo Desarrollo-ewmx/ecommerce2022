@@ -1,7 +1,7 @@
 export default {
     head: {
-        titleTemplate: 'Martfury - Multi-purpose Ecomerce template with vuejs',
-        title: 'Martfury - Multi-purpose Ecomerce template with vuejs',
+        titleTemplate: 'Canastas y Arcones',
+        title: 'Canastas y Arcones',
         meta: [
             { charset: 'utf-8' },
             {
@@ -38,7 +38,8 @@ export default {
         { src: '~/plugins/vue-notification.js', ssr: false },
         { src: '~/plugins/axios.js', ssr: false },
         { src: '~/plugins/lazyLoad.js', ssr: false },
-        { src: '~/plugins/vue-carousel.js', mode: 'client' }
+        { src: '~/plugins/vue-carousel.js', mode: 'client' },
+        { src: '~/plugins/vue-stepper', mode: 'client' }
     ],
 
     buildModules: [
@@ -70,6 +71,7 @@ export default {
 
     server: {
         port: 4002,
-        host: 'localhost'
+        host: 'localhost',
+        proxy: 'http://35.87.217.218/api'
     }
 };
