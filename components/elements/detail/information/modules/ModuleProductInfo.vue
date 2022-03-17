@@ -1,8 +1,8 @@
 <template lang="html">
     <div>
-        <h1>{{ product.title }}</h1>
+        <h1>{{ arcon.nombre_armado }}</h1>
         <div class="ps-product__meta">
-            <p>
+            <!-- <p>
                 Brand:
                 <nuxt-link to="/shop">
                     <a class="ml-2 text-capitalize">
@@ -13,14 +13,19 @@
             <div class="ps-product__rating">
                 <rating />
                 <span>(1 review)</span>
-            </div>
+            </div> -->
         </div>
-        <h4 v-if="product.is_sale === true" class="ps-product__price sale">
+        <!-- colocar precio tachado -->
+
+        <!-- <h4 v-if="product.is_sale === true" class="ps-product__price sale">
             <del class="mr-2"> $ {{ product.sale_price.toFixed(2) }}</del>
             ${{ product.price.toFixed(2) }}
         </h4>
         <h4 v-else class="ps-product__price">
             ${{ product.price.toFixed(2) }}
+        </h4> -->
+        <h4 class="ps-product__price">
+            ${{arcon.precio_redondeado}}
         </h4>
     </div>
 </template>
@@ -31,11 +36,12 @@ export default {
     name: 'ModuleProductInfo',
     components: { Rating },
     props: {
-        product: {
+        arcon: {
             type: Object,
-            default: () => {}
-        }
-    }
+            require: true,
+            default: () => {},
+        },
+    },
 };
 </script>
 

@@ -1,22 +1,22 @@
 <template lang="html">
-    <ul>
-        <template v-for="link in links">
-            <li :key="link.text" :class="link.active ? 'active' : ''">
-                <nuxt-link :to="link.url">
-                    <i :class="link.icon"></i>
-                    {{ link.text }}
-                </nuxt-link>
-            </li>
-        </template>
-        <li>
-            <nuxt-link to="/account/my-account">
-                <a>
-                    <i class="icon-power-switch"></i>
-                    Logout
-                </a>
+<ul>
+    <template v-for="link in links">
+        <li :key="link.text" :class="link.active ? 'active' : ''">
+            <nuxt-link :to="link.url">
+                <i :class="link.icon"></i>
+                {{ link.text }}
             </nuxt-link>
         </li>
-    </ul>
+    </template>
+    <li>
+
+        <a href="#" @click.prevent="handleLogout">
+            <i class="icon-power-switch"></i>
+            Cerrar sesion
+        </a>
+
+    </li>
+</ul>
 </template>
 
 <script>
@@ -25,9 +25,16 @@ export default {
     props: {
         links: {
             type: Array,
-            default: () => []
-        }
-    }
+            default: () => [],
+        },
+    },
+    methods: {
+        handleLogout() {
+            this.$store.dispatch('auth/setAuthStatus', false);
+            this.$store.dispatch('auth/deletesesion');
+            location.reload();
+        },
+    },
 };
 </script>
 

@@ -26,7 +26,7 @@
                         </nuxt-link>
                     </li>
                     <li>
-                        <nuxt-link to="/account/catalogo">
+                        <nuxt-link to="/shop">
                             Catalogo
                         </nuxt-link>
                     </li>

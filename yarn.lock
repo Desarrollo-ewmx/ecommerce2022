@@ -6777,6 +6777,18 @@
     "readable-stream" "~2.3.6"
     "set-immediate-shim" "~1.0.1"
 
+"jw-paginate@^1.0.4":
+  "integrity" "sha512-W0bv782exgCoynUL/egbRpaYwf/r6T6e02H870H5u3hfSgEYrxgz5POwmFF5aApS6iPi6yhZ0VF8IbafNFsntA=="
+  "resolved" "https://registry.npmjs.org/jw-paginate/-/jw-paginate-1.0.4.tgz"
+  "version" "1.0.4"
+
+"jw-vue-pagination@^1.0.3":
+  "integrity" "sha512-85BV/5maL87mykKH8GBGRsi23p7yVsA4Y8dakCMQNbt/7wOJEqDtOySq5xm1xaudVO4UOp+0lbzUiTrHvXfr+A=="
+  "resolved" "https://registry.npmjs.org/jw-vue-pagination/-/jw-vue-pagination-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "jw-paginate" "^1.0.4"
+
 "kind-of@^3.0.2", "kind-of@^3.0.3":
   "integrity" "sha1-MeohpzS6ubuw8yRm2JOupR5KPGQ="
   "resolved" "https://registry.npmjs.org/kind-of/-/kind-of-3.2.2.tgz"

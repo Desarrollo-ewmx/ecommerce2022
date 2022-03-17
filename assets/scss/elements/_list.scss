@@ -40,6 +40,16 @@
                     color: #c32aa3;
                 }
             }
+            &.linkedin {
+                i {
+                    color: #076a78;
+                }
+            }
+            &.youtube {
+                i {
+                    color: #ff0000;
+                }
+            }
         }
     }
 }
@@ -424,6 +434,12 @@
                 background-color: #2d567f;
                 &:hover {
                     background-color: lighten(#2d567f, 15%);
+                }
+            }
+            &.youtube {
+                background-color: #cc0000;
+                &:hover {
+                    background-color: lighten(#cc0000, 15%);
                 }
             }
 

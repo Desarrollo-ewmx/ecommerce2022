@@ -1,5 +1,6 @@
 import Repository, { serializeQuery } from '~/repositories/Repository.js';
 import { baseUrl } from '~/repositories/Repository';
+import { apiURL } from '~/repositories/Repository';
 
 export const state = () => ({
     product: null,
@@ -10,7 +11,8 @@ export const state = () => ({
     compareItems: null,
     brands: null,
     categories: null,
-    total: 0
+    total: 0,
+    catalogo: null
 });
 
 export const mutations = {
@@ -46,6 +48,10 @@ export const mutations = {
 
     setTotal(state, payload) {
         state.total = payload;
+    },
+
+    setCatalogo(state, payload) {
+        state.catalogo = payload;
     }
 };
 
@@ -62,14 +68,36 @@ export const actions = {
         return reponse;
     },
 
-    async getTotalRecords({ commit }, payload) {
-        const reponse = await Repository.get(`${baseUrl}/products/count`)
-            .then(response => {
-                commit('setTotal', response.data);
-                return response.data;
-            })
-            .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+    async getTotalRecords({ commit, state }, payload) {
+        // const reponse = await Repository.get(`${baseUrl}/products/count`)
+        //     .then(response => {
+        //         commit('setTotal', response.data);
+        //         return response.data;
+        //     })
+        //     .catch(error => ({ error: JSON.stringify(error) }));
+        // return reponse;
+
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.get(
+                `${apiURL}/muestraarmadoyproductos?token=${token}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            const arma = JSON.parse(JSON.stringify(result.data.armado));
+            const resultado = arma.filter(
+                catalogo => catalogo.armado_catalogo == 'Si'
+            );
+            //  commit('setProducts', resultado);
+            commit('setTotal', resultado.length);
+            commit('setProducts', resultado);
+            commit('setCatalogo', resultado);
+            //  console.log(state.arcones);
+            //  console.log(state.arcones.length);
+            return arma;
+        } catch (error) {
+            console.log(error);
+        }
     },
 
     async getProductsById({ commit }, payload) {
@@ -83,6 +111,8 @@ export const actions = {
     },
 
     async getProductByKeyword({ commit }, payload) {
+        console.log('El usuario escribio esto');
+        console.log(payload);
         const reponse = await Repository.get(
             `${baseUrl}/products?${serializeQuery(payload)}`
         )
@@ -203,17 +233,42 @@ export const actions = {
             .catch(error => ({ error: JSON.stringify(error) }));
         return reponse;
     },
-    async getProductsByPriceRange({ commit }, payload) {
-        const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(payload)}`
-        )
-            .then(response => {
-                commit('setProducts', response.data);
-                commit('setSearchResults', response.data);
-                commit('setTotal', response.data.length);
-                return response.data;
-            })
-            .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+    async getProductsByPriceRange({ commit, state }, payload) {
+        // const reponse = await Repository.get(
+        //     `${baseUrl}/products?${serializeQuery(payload)}`
+        // )
+        //     .then(response => {
+        //         commit('setProducts', response.data);
+        //         commit('setSearchResults', response.data);
+        //         commit('setTotal', response.data.length);
+        //         return response.data;
+        //     })
+        //     .catch(error => ({ error: JSON.stringify(error) }));
+        // return reponse;
+
+        try {
+            // const token =
+            //     '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            // const response = await Repository.get(
+            //     `${apiURL}/muestraarmadoyproductos?token=${token}`
+            // );
+            // const result = JSON.parse(JSON.stringify(response.data));
+            // const arma = JSON.parse(JSON.stringify(result.data.armado));
+            // const resultado = arma.filter(
+            //     catalogo => catalogo.armado_catalogo == 'Si'
+            // );
+            const resultado2 = state.catalogo.filter(
+                catalogo =>
+                    catalogo.precio_redondeado >= payload.price_gt &&
+                    catalogo.precio_redondeado <= payload.price_lt
+            );
+            commit('setTotal', resultado2.length);
+            commit('setProducts', resultado2);
+            console.log('Obtuve : ' + resultado2.length);
+            console.log(resultado2);
+            return resultado2;
+        } catch (error) {
+            console.log(error);
+        }
     }
 };

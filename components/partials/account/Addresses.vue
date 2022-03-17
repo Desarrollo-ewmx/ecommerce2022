@@ -1,31 +1,31 @@
 <template lang="html">
-    <section class="ps-my-account ps-page--account">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="ps-section__left">
-                        <aside class="ps-widget--account-dashboard">
-                            <div class="ps-widget__header">
-                                <img src="/img/users/3.jpg" />
-                                <figure>
-                                    <figcaption>Hello</figcaption>
-                                    <p>username@gmail.com</p>
-                                </figure>
-                            </div>
-                            <div class="ps-widget__content">
-                                <AccountLinks :links="accountLinks" />
-                            </div>
-                        </aside>
-                    </div>
+<section class="ps-my-account ps-page--account">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ps-section__left">
+                    <aside class="ps-widget--account-dashboard">
+                        <div class="ps-widget__header">
+                            <img :src="img" />
+                            <figure>
+                                <figcaption>Bienvenido</figcaption>
+                                <p>{{nombre}}</p>
+                            </figure>
+                        </div>
+                        <div class="ps-widget__content">
+                            <AccountLinks :links="accountLinks" />
+                        </div>
+                    </aside>
                 </div>
-                <div class="col-lg-8">
-                    <div class="ps-section--account-setting">
-                        <div class="ps-section__content">
-                            <div class="row">
+            </div>
+            <div class="col-lg-8">
+                <div class="ps-section--account-setting">
+                    <div class="ps-section__content">
+                        <!-- <div class="row">
                                 <div class="col-md-6 col-12">
                                     <figure class="ps-block--address">
                                         <figcaption>
-                                            Billing address
+                                            Billing address 
                                         </figcaption>
                                         <div class="ps-block__content">
                                             <p>
@@ -58,57 +58,76 @@
                                         </div>
                                     </figure>
                                 </div>
-                            </div>
-                        </div>
+                            </div> -->
                     </div>
                 </div>
+
             </div>
         </div>
-    </section>
+        <div class="container">
+            <TablaDirecciones />
+        </div>
+    </div>
+</section>
 </template>
 
 <script>
 import AccountLinks from './modules/AccountLinks';
+import TablaDirecciones from '~/components/partials/account/modules/TablaDirecciones';
 export default {
     name: 'Addresses',
-    components: { AccountLinks },
+    components: {
+        AccountLinks,
+        TablaDirecciones,
+    },
     data() {
         return {
             accountLinks: [
                 {
-                    text: 'Account Information',
+                    text: 'Informacion de cuenta',
                     url: '/account/user-information',
-                    icon: 'icon-user'
                 },
+                // {
+                //     text: 'Notifications',
+                //     url: '/account/notifications',
+                // },
+                // {
+                //     text: 'Invoices',
+                //     url: '/account/invoices',
+                // },
                 {
-                    text: 'Notifications',
-                    url: '/account/notifications',
-                    icon: 'icon-alarm-ringing'
-                },
-                {
-                    text: 'Invoices',
-                    url: '/account/invoices',
-                    icon: 'icon-papers'
-                },
-                {
-                    text: 'Address',
+                    text: 'Direcciones',
                     url: '/account/addresses',
-                    icon: 'icon-map-marker',
-                    active: true
                 },
-                {
-                    text: 'Recent Viewed Product',
-                    url: '/account/recent-viewed-product',
-                    icon: 'icon-store'
-                },
-                {
-                    text: 'Wishlist',
-                    url: '/account/wishlist',
-                    icon: 'icon-heart'
-                }
-            ]
+                // {
+                //     text: 'Recent Viewed Product',
+                //     url: '/account/recent-viewed-product',
+                // },
+                // {
+                //     text: 'Wishlist',
+                //     url: '/account/wishlist',
+                // },
+            ],
+            nombre: null,
+            img: null,
         };
-    }
+    },
+    mounted() {
+        if (localStorage.nombre) {
+            this.nombre = localStorage.nombre;
+        }
+        if (localStorage.img) {
+            this.img = localStorage.img;
+        }
+    },
+    watch: {
+        nombre(newName) {
+            localStorage.nombre = newName;
+        },
+        img(newimg) {
+            localStorage.img = newimg;
+        },
+    },
 };
 </script>
 

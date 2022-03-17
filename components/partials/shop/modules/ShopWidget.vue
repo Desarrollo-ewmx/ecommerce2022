@@ -2,26 +2,26 @@
     <div id="shop-widgets">
         <aside class="widget widget_shop">
             <h4 class="widget-title">
-                {{ $t('shop.widget.categories') }}
+                {{ $t('Categorias') }}
             </h4>
             <ul v-if="categories !== undefined" class="ps-list--categories">
                 <li>
                     <a href="#" @click.prevent="handleGotoCategory(null)">
-                        All Categories
+                        Todos los productos
                     </a>
                 </li>
                 <li v-for="category in categories" :key="category.id">
                     <a
                         href="#"
-                        @click.prevent="handleGotoCategory(category.slug)"
+                        @click.prevent="handleGotoCategory(category)"
                     >
-                        {{ category.name }}
+                        {{ category }}
                     </a>
                 </li>
             </ul>
         </aside>
         <aside class="widget widget_shop">
-            <h4 class="widget-title">
+            <!-- <h4 class="widget-title">
                 {{ $t('shop.widget.byBrands') }}
             </h4>
             <figure>
@@ -33,21 +33,21 @@
                     :key="brand.id"
                     @click="handleFilterByBrand"
                 />
-            </figure>
+            </figure> -->
             <figure>
                 <h4 class="widget-title">
-                    {{ $t('shop.widget.byBrands') }}
+                    {{ $t('Filtrar precios') }}
                 </h4>
                 <v-range-slider
                     v-model="priceRange"
                     color="warning"
-                    min="0"
-                    max="1500"
+                    min="200"
+                    max="6300"
                     track-color="#dddddd"
                     @end="handleFilterByPriceRagne"
                 />
                 <p>
-                    Price: ${{ priceRange[0].toFixed(2) }} - ${{
+                    Precio: ${{ priceRange[0].toFixed(2) }} - ${{
                         priceRange[1].toFixed(2)
                     }}
                 </p>
@@ -65,38 +65,65 @@ export default {
     name: 'ShopWidget',
     computed: {
         ...mapState({
-            categories: state => state.product.categories,
-            brands: state => state.product.brands,
-            products: state => state.product.products
+            // categories: (state) => state.product.categories,
+            brands: (state) => state.product.brands,
+            products: (state) => state.product.products,
         }),
         categorySlug() {
+            console.log(this.$route);
             return this.$route;
-        }
+        },
     },
     data() {
         return {
-            priceRange: [100, 1000],
-            selectedBrands: []
+            priceRange: [200, 6300],
+            selectedBrands: [],
+            categories: [
+                'Económica',
+                'Economico',
+                'Intermedia',
+                'Ejecutiva',
+                'Empresarial',
+                'Express',
+                'Premium',
+            ],
         };
+    },
+    mounted() {
+        if (this.$route.query.gama) {
+            this.$store.dispatch(
+                'arcones/getArconbygama',
+                this.$route.query.gama
+            );
+            this.$store.commit('collection/setQueries', [
+                this.$route.query.gama,
+            ]);
+        }
     },
     methods: {
         async handleGotoCategory(slug) {
             if (slug) {
-                const url = `/shop?category=${slug}`;
-                const products = getColletionBySlug(this.categories, slug);
-                this.$store.commit('product/setProducts', products);
-                this.$store.commit('product/setProducts', products);
-                this.$store.commit('product/setTotal', products.length);
+                // for (let index = 0; index < this.categories2.length; index++) {
+                //     console.log(this.categories2[index]);
+                // }
+                // const url = `/shop?category=${slug}`;
+                // const products = getColletionBySlug(this.categories, slug);
+                // this.$store.commit('product/setProducts', products);
+                // this.$store.commit('product/setProducts', products);
+                // this.$store.commit('product/setTotal', products.length);
+                this.$store.dispatch('arcones/getArconbygama', slug);
                 this.$store.commit('collection/setQueries', [slug]);
-                this.$router.push(url);
+                // this.$router.push(url);
             } else {
                 const params = {
                     _start: 1,
-                    _limit: 12
+                    _limit: 12,
                 };
                 await this.$store.commit('collection/setQueries', null);
-                await this.$store.dispatch('product/getTotalRecords', params);
-                await this.$store.dispatch('product/getProducts', params);
+                await this.$store.dispatch('arcones/setarmados');
+                // await this.$store.dispatch('product/getTotalRecords', params);
+                // await this.$store.dispatch('product/getProducts', params);
+                // this.$router.push('/shop');
             }
         },
 
@@ -114,10 +141,10 @@ export default {
             } else {
                 const params = {
                     _start: 1,
-                    _limit: 12
+                    _limit: 12,
                 };
                 await this.$store.commit('collection/setQueries', null);
-                await this.$store.dispatch('product/getTotalRecords', params);
+                // await this.$store.dispatch('product/getTotalRecords', params);
                 await this.$store.dispatch('product/getProducts', params);
             }
         },
@@ -126,17 +153,18 @@ export default {
             const params = {
                 price_gt: this.priceRange[0],
                 price_lt: this.priceRange[1],
-                _start: 1,
-                _limit: 999
             };
             // console.log(this.priceRange);
-            await this.$store.dispatch(
-                'product/getProductsByPriceRange',
-                params
-            );
-            await this.$router.push(`/search?${serializeQuery(params)}`);
-        }
-    }
+            await this.$store.dispatch('arcones/getArconByPriceRange', params);
+            // await this.$store.dispatch(
+            //     'product/getProductsByPriceRange',
+            //     params
+            // );
+            this.priceRange[0] = 200;
+            this.priceRange[1] = 6300;
+            // await this.$router.push(`/search?${serializeQuery(params)}`);
+        },
+    },
 };
 </script>
 

@@ -34,8 +34,8 @@ export default {
     computed: {
         shopCategories() {
             return categories;
-        }
-    }
+        },
+    },
 };
 </script>
 

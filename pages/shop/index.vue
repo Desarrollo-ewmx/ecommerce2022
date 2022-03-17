@@ -2,9 +2,9 @@
     <div class="ps-page--shop">
         <bread-crumb :breadcrumb="breadCrumb" layout="fullwidth" />
         <div class="ps-container">
-            <shop-banner />
+            <!-- <shop-banner />
             <shop-brands />
-            <shop-categories />
+            <shop-categories /> -->
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
                     <shop-widget v-if="widgetLoading === false" />
@@ -44,13 +44,13 @@ export default {
     },
     computed: {
         ...mapState({
-            collections: state => state.collection.collections,
-            categories: state => state.product.categories,
-            brands: state => state.product.brands
+            collections: (state) => state.collection.collections,
+            categories: (state) => state.product.categories,
+            brands: (state) => state.product.brands,
         }),
         categorySlug() {
             return this.$route.query.category;
-        }
+        },
     },
     data() {
         return {
@@ -58,23 +58,23 @@ export default {
             breadCrumb: [
                 {
                     text: 'Home',
-                    url: '/'
+                    url: '/',
                 },
                 {
-                    text: 'Shop Default'
-                }
-            ]
+                    text: 'Catalogo',
+                },
+            ],
         };
     },
 
     async created() {
         const params = {
             _start: 1,
-            _limit: 12
+            _limit: 12,
         };
         const collectionsParams = [
             'shop-best-seller-items',
-            'shop-recommend-items'
+            'shop-recommend-items',
         ];
         const collections = await this.$store.dispatch(
             'collection/getCollectionsBySlugs',
@@ -84,10 +84,10 @@ export default {
             'product/getProducts',
             params
         );
-        const total = await this.$store.dispatch(
-            'product/getTotalRecords',
-            params
-        );
+        // const total = await this.$store.dispatch(
+        //     'product/getTotalRecords',
+        //     params
+        // );
 
         const brands = await this.$store.dispatch(
             'product/getProductBrands',
@@ -97,15 +97,20 @@ export default {
             'product/getProductCategories',
             params
         );
-        if (brands && categories) {
+        // const catalogo = await this.$store.dispatch(
+        //     'product/getTotalRecords',
+        //     params
+        // );
+        const arcones = await this.$store.dispatch('arcones/setarmados');
+        if (brands && arcones) {
             setTimeout(
-                function() {
+                function () {
                     this.widgetLoading = false;
                 }.bind(this),
                 150
             );
         }
-    }
+    },
 };
 </script>
 

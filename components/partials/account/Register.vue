@@ -76,7 +76,11 @@
                 >
                     Registrar usuario
                 </button>
-                <h3>{{log}}</h3>
+                <div align="right">
+                    <nuxt-link to="/#">
+                        <p style="color:blue;">Olvide mi contraseña</p>
+                    </nuxt-link>
+                </div>
             </div>
             </div>
         <div class="ps-form__footer">
@@ -198,7 +202,13 @@ export default {
 
         async setusers() {
             var flag = await this.$store.dispatch('auth/setusuario', this.log);
-            console.log(flag);
+            // console.log(flag);
+            this.$notify({
+                group: 'addCartSuccess',
+                title: 'Error',
+                text: flag,
+                type: 'danger',
+            });
             this.$router.push('/account/login');
         },
     },

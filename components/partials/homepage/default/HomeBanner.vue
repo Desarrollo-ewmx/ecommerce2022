@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="ps-home-banner ps-home-banner--1">
-        <div class="ps-container">
-            <div class="ps-section__left">
+        <div class="ps-container" align="center">
+            <div >
                 <div class="ps-carousel" v-swiper:mySwiper="swiperOption">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
@@ -46,7 +46,7 @@
                     ></div>
                 </div>
             </div>
-            <div class="ps-section__right">
+            <!-- <div class="ps-section__right">
                 <nuxt-link to="/shop" class="ps-collection">
                     <img
                         src="/img/slider/home-1/promotion-1.jpg"
@@ -59,7 +59,7 @@
                         alt="martfury"
                     />
                 </nuxt-link>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -91,8 +91,10 @@ export default {
             var resp = await this.$store.dispatch('arcones/setarmados');
             const result = this.$store.getters['arcones/getproducts'];
             this.cya = result;
+            console.log('Este es el numero 5');
             console.log(this.cya[5].ruta_Completa);
             this.img = this.cya[0].ruta_Completa;
+            console.log(this.cya[0]);
             this.img2 = this.cya[1].ruta_Completa;
             this.img3 = this.cya[2].ruta_Completa;
         },

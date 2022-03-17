@@ -3,25 +3,25 @@
         <div class="ps-product__thumbnail">
             <nuxt-link :to="`/product/${product.id}`">
                 <img
-                    :src="`${baseUrl}${product.thumbnail.url}`"
+                    :src="product.ruta_Completa"
                     alt="martfury"
                 />
             </nuxt-link>
         </div>
         <div class="ps-product__content">
             <nuxt-link :to="`/product/${product.id}`" class="ps-product__title">
-                {{ product.title }}
+                {{ product.nombre_armado }}
             </nuxt-link>
-            <div class="ps-product__rating">
+            <!-- <div class="ps-product__rating">
                 <rating />
                 <span>{{ product.ratingCount }}</span>
-            </div>
+            </div> -->
             <p v-if="product.sale === true" class="ps-product__price sale">
-                {{ currency }}{{ product.price }}
-                <del class="ml-2"> {{ currency }}{{ product.sale_price }} </del>
+                {{ currency }}{{ product.precio_redondeado }}
+                <del class="ml-2"> {{ currency }}{{ product.precio_redondeado }} </del>
             </p>
             <p v-else class="ps-product__price">
-                {{ currency }}{{ product.price }}
+                {{ currency }}{{ product.precio_redondeado }}
             </p>
         </div>
     </div>
@@ -39,18 +39,18 @@ export default {
         product: {
             type: Object,
             require: true,
-            default: {}
-        }
+            default: {},
+        },
     },
     computed: {
         ...mapState({
-            cartItems: state => state.cart.cartItems,
-            currency: state => state.app.currency
+            cartItems: (state) => state.cart.cartItems,
+            currency: (state) => state.app.currency,
         }),
         baseUrl() {
             return baseUrl;
-        }
-    }
+        },
+    },
 };
 </script>
 

@@ -4,7 +4,7 @@
             <figure>
                 <div class="ps-wrapper">
                     <!-- Gallery-->
-                    <div class="ps-product__gallery">
+                    <!-- <div class="ps-product__gallery">
                         <div
                             class=" ps-carousel inside swiper"
                             v-swiper:swiperGallery="swiperOptionTop"
@@ -30,9 +30,14 @@
                                 class="swiper-pagination swiper-pagination-bullets"
                             ></div>
                         </div>
-                    </div>
+                    </div> -->
+                    <img :src ="arcon.ruta_Completa"/>
                 </div>
-                 <div class="ps-product__variants">
+                <div>
+                    <p align="center">{{arcon.sku}}</p>
+                    <!-- <h3>{{arcon}}</h3> -->
+                </div>
+                 <!-- <div class="ps-product__variants">
                 <div
                     class="ps-carousel swiper"
                     v-swiper:swiperVariants="swiperOptionThumbs"
@@ -51,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             </figure>
             <!--Variants-->
@@ -65,6 +70,13 @@ import { baseUrl } from '~/repositories/Repository';
 
 export default {
     name: 'ThumbnailDefault',
+    props: {
+        arcon: {
+            type: Object,
+            require: true,
+            default: () => {},
+        },
+    },
     computed: {
         ...mapState({
             product: (state) => state.product.product,

@@ -3,7 +3,7 @@
         <div class="ps-product__thumbnail">
             <nuxt-link :to="`/product/${product.id}`">
                 <img
-                    :src="`${baseUrl}${product.thumbnail.url}`"
+                   :src="product.ruta_Completa"
                     alt="martfury"
                 />
             </nuxt-link>
@@ -14,44 +14,43 @@
                     :to="`/product/${product.id}`"
                     class="ps-product__title"
                 >
-                    {{ product.title }}
+                    {{ product.nombre_armado }}
                 </nuxt-link>
                 <p class="ps-product__vendor">
                     Sold by:
                     <nuxt-link to="/shop">
-                        {{ product.vendor }}
+                        {{ product.gama }}
                     </nuxt-link>
                 </p>
                 <ul class="ps-product__desc">
-                    <li>
-                        Unrestrained and portable active stereo speaker
-                    </li>
-                    <li>Free from the confines of wires and chords</li>
-                    <li>20 hours of portable capabilities</li>
-                    <li>
-                        Double-ended Coil Cord with 3.5mm Stereo Plugs Included
-                    </li>
-                    <li>3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
+                    <p>Productos contenidos:</p>
+        <div v-for="armado in product.productosxarmado" >
+              <strong>° {{armado.desc_producto.nombre}}</strong>
+        </div>
                 </ul>
             </div>
             <div class="ps-product__shopping">
                 <p v-if="product.sale === true" class="ps-product__price sale">
-                    ${{ product.price.toFixed(2) }}
+                    <!-- ${{ product.price.toFixed(2) }} -->
+                    ${{ product.precio_redondeado }}
+
                     <del class="ml-2">
-                        ${{ product.sale_price.toFixed(2) }}
+                        <!-- ${{ product.sale_price.toFixed(2) }} -->
+                        ${{ product.precio_redondeado }}
                     </del>
                 </p>
                 <p v-else class="ps-product__price">
-                    ${{ product.price.toFixed(2) }}
+                    <!-- ${{ product.price.toFixed(2) }} -->
+                    ${{ product.precio_redondeado }}
                 </p>
                 <a class="ps-btn" href="#" @click.prevent="handleAddToCart">
-                    Add to cart
+                    Agregar al carrito
                 </a>
                 <ul class="ps-product__actions">
                     <li>
                         <a href="#" @click.prevent="handleAddItemToWishlist">
                             <i class="icon-heart"></i>
-                            Wishlist
+                            Lista de deseos
                         </a>
                     </li>
                     <li>
@@ -77,16 +76,16 @@ export default {
         product: {
             type: Object,
             require: true,
-            default: () => {}
-        }
+            default: () => {},
+        },
     },
     computed: {
         ...mapState({
-            cartItems: state => state.cart.cartItems
+            cartItems: (state) => state.cart.cartItems,
         }),
         baseUrl() {
             return baseUrl;
-        }
+        },
     },
 
     data: () => ({
@@ -94,7 +93,7 @@ export default {
         productModal: false,
         productPreload: true,
         isImageLoaded: false,
-        quickviewDialog: false
+        quickviewDialog: false,
     }),
 
     methods: {
@@ -102,45 +101,45 @@ export default {
             let item = {
                 id: this.product.id,
                 quantity: 1,
-                price: this.product.price
+                price: this.product.price,
             };
             this.$store.dispatch('cart/addProductToCart', item);
             this.getCartProduct(this.cartItems);
             this.$notify({
                 group: 'addCartSuccess',
                 title: 'Success!',
-                text: `${this.product.title} has been added to your cart!`
+                text: `${this.product.title} has been added to your cart!`,
             });
         },
 
         handleAddItemToWishlist() {
             let item = {
-                id: this.product.id
+                id: this.product.id,
             };
 
             this.$store.dispatch('wishlist/addItemToWishlist', item);
             this.$notify({
                 group: 'addCartSuccess',
                 title: 'Add to wishlist!',
-                text: `${this.product.title} has been added to your wishlist !`
+                text: `${this.product.title} has been added to your wishlist !`,
             });
         },
 
         handleAddItemToCompare() {
             let item = {
-                id: this.product.id
+                id: this.product.id,
             };
             this.$store.dispatch('compare/addItemToCompare', item);
             this.$notify({
                 group: 'addCartSuccess',
                 title: 'Add to Compare!',
-                text: `${this.product.title} has been added to your compare !`
+                text: `${this.product.title} has been added to your compare !`,
             });
         },
 
         async getCartProduct(products) {
             let listOfIds = [];
-            products.forEach(item => {
+            products.forEach((item) => {
                 listOfIds.push(item.id);
             });
             const response = await this.$store.dispatch(
@@ -150,8 +149,8 @@ export default {
             if (response) {
                 this.$store.commit('cart/setLoading', false);
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

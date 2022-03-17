@@ -25,7 +25,7 @@ export default {
                     url: '/',
                 },
                 {
-                    text: 'User Information',
+                    text: 'Menu usuario',
                 },
             ],
         };

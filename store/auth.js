@@ -5,7 +5,8 @@ export const state = () => ({
     isLoggedIn: false,
     correo: null,
     armados: [],
-    nombre: null
+    nombre: null,
+    img: null
 });
 
 export const mutations = {
@@ -14,9 +15,11 @@ export const mutations = {
     },
     setNombre(state, payload) {
         state.nombre = payload;
+        localStorage.setItem('nombre', payload);
     },
     setUsuario(state, payload) {
         state.correo = payload;
+        localStorage.setItem('correo', payload);
     },
     deleteUsuario(state) {
         state.correo = null;
@@ -25,6 +28,10 @@ export const mutations = {
     },
     setArmados(state, payload) {
         state.armados = payload;
+    },
+    setImg(state, payload) {
+        state.img = payload;
+        localStorage.setItem('img', payload);
     }
 };
 
@@ -49,7 +56,10 @@ export const actions = {
             const result = JSON.parse(JSON.stringify(response.data));
             const info = JSON.parse(JSON.stringify(result.data));
             console.log('Obtuve esto: ' + info.nom);
+            const url = info.img_us_rut + info.img_us;
             commit('setUsuario', payload.username);
+            commit('setNombre', info.nom);
+            commit('setImg', url);
             this.$cookies.set('user', state.correo);
             console.log(this.$cookies.get('user'));
             console.log(

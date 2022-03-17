@@ -5,7 +5,7 @@
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
                     <shop-widget
-                        v-if="categories !== null && brands !== null"
+                        
                     />
                 </div>
 
@@ -32,19 +32,19 @@ export default {
         ShopWidget,
         SearchResult,
         LayoutShop,
-        BreadCrumb
+        BreadCrumb,
     },
 
     computed: {
         ...mapState({
-            searchResults: state => state.product.searchResults,
-            collections: state => state.collection.collections,
-            categories: state => state.product.categories,
-            brands: state => state.product.brands
+            searchResults: (state) => state.product.searchResults,
+            collections: (state) => state.collection.collections,
+            categories: (state) => state.product.categories,
+            brands: (state) => state.product.brands,
         }),
         keyword() {
             return this.$route.query.keyword;
-        }
+        },
     },
 
     data() {
@@ -52,44 +52,48 @@ export default {
             breadCrumb: [
                 {
                     text: 'Home',
-                    url: '/'
+                    url: '/',
                 },
                 {
-                    text: 'Search Result'
-                }
-            ]
+                    text: 'Buscar',
+                },
+            ],
         };
     },
 
     async created() {
-        await this.$store.dispatch('product/getProductByKeyword', {
-            title_contains: this.keyword
-        });
+        // await this.$store.dispatch('product/getProductByKeyword', {
+        //     title_contains: this.keyword
+        // });
+        await this.$store.dispatch(
+            'arcones/getArconbykey',
+            this.$route.query.keyword
+        );
         const params = {
             _start: 1,
-            _limit: 12
+            _limit: 12,
         };
-        const collectionsParams = [
-            'shop_best_sale_items',
-            'shop-recommend-items'
-        ];
-        const collections = await this.$store.dispatch(
-            'collection/getCollectionsBySlugs',
-            collectionsParams
-        );
-        const products = await this.$store.dispatch(
-            'product/getProducts',
-            params
-        );
-        const brands = await this.$store.dispatch(
-            'product/getProductBrands',
-            params
-        );
-        const categories = await this.$store.dispatch(
-            'product/getProductCategories',
-            params
-        );
-    }
+        // const collectionsParams = [
+        //     'shop_best_sale_items',
+        //     'shop-recommend-items',
+        // ];
+        // const collections = await this.$store.dispatch(
+        //     'collection/getCollectionsBySlugs',
+        //     collectionsParams
+        // );
+        // const products = await this.$store.dispatch(
+        //     'product/getProducts',
+        //     params
+        // );
+        // const brands = await this.$store.dispatch(
+        //     'product/getProductBrands',
+        //     params
+        // );
+        // const categories = await this.$store.dispatch(
+        //     'product/getProductCategories',
+        //     params
+        // );
+    },
 };
 </script>
 

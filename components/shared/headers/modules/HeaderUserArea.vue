@@ -23,7 +23,7 @@
                 </li>
                 <li class="ps-block__footer">
                     <a href="#" @click.prevent="handleLogout">
-                        Logout
+                        Cerrar sesion
                     </a>
                 </li>
             </ul>
@@ -45,29 +45,29 @@ export default {
         return {
             accountLinks: [
                 {
-                    text: 'Account Information',
+                    text: 'Informacion de cuenta',
                     url: '/account/user-information',
                 },
+                // {
+                //     text: 'Notifications',
+                //     url: '/account/notifications',
+                // },
+                // {
+                //     text: 'Invoices',
+                //     url: '/account/invoices',
+                // },
                 {
-                    text: 'Notifications',
-                    url: '/account/notifications',
-                },
-                {
-                    text: 'Invoices',
-                    url: '/account/invoices',
-                },
-                {
-                    text: 'Address',
+                    text: 'Direcciones',
                     url: '/account/addresses',
                 },
-                {
-                    text: 'Recent Viewed Product',
-                    url: '/account/recent-viewed-product',
-                },
-                {
-                    text: 'Wishlist',
-                    url: '/account/wishlist',
-                },
+                // {
+                //     text: 'Recent Viewed Product',
+                //     url: '/account/recent-viewed-product',
+                // },
+                // {
+                //     text: 'Wishlist',
+                //     url: '/account/wishlist',
+                // },
             ],
         };
     },
@@ -75,6 +75,7 @@ export default {
         handleLogout() {
             this.$store.dispatch('auth/setAuthStatus', false);
             this.$store.dispatch('auth/deletesesion');
+            location.reload();
         },
     },
 };

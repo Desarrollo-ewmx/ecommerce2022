@@ -7,15 +7,18 @@
                     <button class="up" @click.prevent="handleIncreaseQuantity">
                         <i class="fa fa-plus"></i>
                     </button>
-                    <button class="down" @click.prevent="handleDescreaseQuantity">
+                    <div v-if="quantity > 1">
+                        <button class="down" @click.prevent="handleDescreaseQuantity">
                         <i class="fa fa-minus"></i>
                     </button>
+                    </div>
                     <input
                         v-model="quantity"
                         class="form-control"
                         type="text"
                         min=1
                         style="display:block"
+                        @change="checkquantity"
                     />
                 </div>
             </figure>
@@ -49,12 +52,17 @@ export default {
             type: Object,
             default: () => {},
         },
+        arcon: {
+            type: Object,
+            require: true,
+            default: () => {},
+        },
     },
     computed: {
         incart() {
             let result = 0;
             this.cartItems.forEach((element) => {
-                if (element.id == this.product.id) {
+                if (element.id == this.arcon.id) {
                     result = element.quantity;
                 }
             });
@@ -71,6 +79,11 @@ export default {
         };
     },
     methods: {
+        checkquantity() {
+            if (this.quantity < 1) {
+                this.quantity = 1;
+            }
+        },
         handleIncreaseQuantity() {
             this.quantity++;
             this.$store.dispatch('cotizacion/addcantidad', this.quantity);

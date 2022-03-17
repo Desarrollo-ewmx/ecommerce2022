@@ -4,19 +4,20 @@
         @submit.prevent="handleSubmit"
         v-click-outside="handleClickOutside"
     >
-        <div class="ps-form__categories">
+    <!-- Filtro del buscador -->
+        <!-- <div class="ps-form__categories">
             <select class="form-control">
                 <option v-for="item in exampleCategories" :value="{ item }">
                     {{ item }}
                 </option>
             </select>
-        </div>
+        </div> -->
         <div class="ps-form__input">
             <input
                 v-model="searchText"
                 class="form-control"
                 type="text"
-                placeholder="I'm shopping for..."
+                placeholder="Estoy buscando..."
                 @keyup="handleSearchProduct"
             />
             <v-progress-circular
@@ -28,7 +29,7 @@
             />
         </div>
 
-        <button>{{ $t('menu.navigationList.search') }}</button>
+        <button>{{ $t('Buscar') }}</button>
         <div
             :class="
                 `ps-panel--search-result ${
@@ -37,14 +38,14 @@
             "
         >
             <div class="ps-panel__content">
-                <template v-if="searchResults && searchResults.length > 0">
+                <template v-if="finded && finded.length > 0">
                     <product-result
-                        v-for="product in searchResults"
+                        v-for="product in finded"
                         :product="product"
                         :key="product.id"
                     />
                 </template>
-                <span>Not found! Try with another keyword.</span>
+                <!-- <span>Not found! Try with another keyword.</span> -->
             </div>
             <div class="ps-panel__footer text-center">
                 <nuxt-link to="/search">
@@ -64,8 +65,9 @@ export default {
     components: { ProductResult },
     computed: {
         ...mapState({
-            searchResults: state => state.product.searchResults
-        })
+            searchResults: (state) => state.product.searchResults,
+            finded: (state) => state.arcones.finded,
+        }),
     },
     data() {
         return {
@@ -125,11 +127,11 @@ export default {
                 'Equipments',
                 'Hair Care',
                 'Perfumer',
-                'Wine Cabinets'
+                'Wine Cabinets',
             ],
             isSearching: false,
             isLoading: false,
-            searchText: ''
+            searchText: '',
         };
     },
     methods: {
@@ -137,16 +139,16 @@ export default {
             if (e.target.value !== '') {
                 this.isSearching = true;
                 const query = {
-                    title_contains: e.target.value
+                    title_contains: e.target.value,
                 };
                 this.isLoading = true;
                 const result = await this.$store.dispatch(
-                    'product/getProductByKeyword',
+                    'arcones/getArconbykey',
                     query
                 );
                 if (result) {
                     setTimeout(
-                        function() {
+                        function () {
                             this.isLoading = false;
                         }.bind(this),
                         500
@@ -166,8 +168,8 @@ export default {
             if (this.searchText !== null || this.searchText !== '') {
                 this.$router.push(`/search?keyword=${this.searchText}`);
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

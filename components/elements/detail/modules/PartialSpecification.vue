@@ -1,34 +1,30 @@
 <template lang="html">
-    <div class="table-responsive">
-        <table class="table table-bordered ps-table ps-table--specification">
+    <div class="table-responsive" align="center">
+        <table class="table table-bordered ps-table ps-table--specification" style="width:100px;">
             <tbody>
                 <tr>
-                    <td>Color</td>
-                    <td>Black, Gray</td>
+                    <td>Gama</td>
+                    <td>{{arcon.gama}}</td>
                 </tr>
                 <tr>
-                    <td>Style</td>
-                    <td>Ear Hook</td>
+                    <td>Tamaño</td>
+                    <td>{{arcon.tamaño}}</td>
                 </tr>
                 <tr>
-                    <td>Wireless</td>
-                    <td>Yes</td>
+                    <td>Peso</td>
+                    <td>{{arcon.peso}} Kg</td>
                 </tr>
                 <tr>
-                    <td>Dimensions</td>
-                    <td>5.5 x 5.5 x 9.5 inches</td>
+                    <td>Altura</td>
+                    <td>{{arcon.altura}} cm</td>
                 </tr>
                 <tr>
-                    <td>Weight</td>
-                    <td>6.61 pounds</td>
+                    <td>Ancho</td>
+                    <td>{{arcon.ancho}} cm</td>
                 </tr>
                 <tr>
-                    <td>Battery Life</td>
-                    <td>20 hours</td>
-                </tr>
-                <tr>
-                    <td>Bluetooth</td>
-                    <td>Yes</td>
+                    <td>Largo</td>
+                    <td>{{arcon.largo}} cm</td>
                 </tr>
             </tbody>
         </table>
@@ -37,7 +33,14 @@
 
 <script>
 export default {
-    name: 'PartialSpecification'
+    name: 'PartialSpecification',
+    props: {
+        arcon: {
+            type: Object,
+            require: true,
+            default: () => {},
+        },
+    },
 };
 </script>
 

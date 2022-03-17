@@ -5,7 +5,7 @@
             <div class="ps-container">
                 <div class="ps-page__container">
                     <div class="ps-page__left">
-                        <product-detail-fullwidth v-if="product !== null" />
+                        <product-detail-fullwidth v-if="arcon !== null" :arcon="arcon" />
                     </div>
                     <div class="ps-page__right">
                         <product-widgets
@@ -63,6 +63,7 @@ export default {
             productId: this.$route.params.id,
             breadCrumb: null,
             pageLoading: true,
+            arcon: '',
         };
     },
     async created() {
@@ -85,6 +86,15 @@ export default {
             'product/getProductsById',
             this.productId
         );
+        console.log('Tengo el id: ' + this.$route.params.id);
+        const cya = await this.$store.dispatch(
+            'arcones/setarcon',
+            this.$route.params.id
+        );
+        const result = this.$store.getters['arcones/getarcon'];
+        console.log('Saque esto del store');
+        console.log(result);
+        this.arcon = result;
         this.breadCrumb = [
             {
                 text: 'Home',
@@ -95,7 +105,7 @@ export default {
                 url: '/shop',
             },
             {
-                text: product.title,
+                text: this.arcon.nombre_armado,
             },
         ];
     },

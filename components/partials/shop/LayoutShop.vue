@@ -1,25 +1,29 @@
 <template lang="html">
     <div class="ps-shopping">
-        <best-sale-items collectionSlug="shop-best-seller-items" />
-        <recommend-items collectionSlug="shop-recommend-items" />
+        <!-- <best-sale-items collectionSlug="shop-best-seller-items" />
+        <recommend-items collectionSlug="shop-recommend-items" /> -->
         <div class="ps-shopping__header">
             <p>
                 <strong class="mr-2">{{ total }}</strong>
-                Products found
+                productos encontrados 
             </p>
             <div class="ps-shopping__actions">
+                <label class="">Ordenar por precio:</label>
                 <select
                     class="ps-select form-control"
                     data-placeholder="Sort Items"
-                >
-                    <option>Sort by latest</option>
+                    v-model="option"
+                    @change="onChange(option)"
+                > 
+                    <!-- <option>Sort by latest</option>
                     <option>Sort by popularity</option>
-                    <option>Sort by average rating</option>
-                    <option>Sort by price: low to high</option>
-                    <option>Sort by price: high to low</option>
+                    <option>Sort by average rating</option> -->
+                    <option>Mas bajo a mas alto</option>
+                    <option>Mas alto a mas bajo</option>
                 </select>
-                <div class="ps-shopping__view">
-                    <p>View</p>
+                <!-- esta opcion es para agregar la otra vista del catalogo -->
+                <!-- <div class="ps-shopping__view">
+                    <p>Vista</p>
                     <ul class="ps-tab-list">
                         <li :class="listView !== true ? 'active' : ''">
                             <a href="#" @click.prevent="handleChangeViewMode">
@@ -32,7 +36,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="ps-shopping__content">
@@ -41,10 +45,11 @@
                     {{ query }}
                 </a>
             </div>
-            <div v-if="listView === false" class="ps-shopping-product">
+             <div class="ps-shopping-product">
+            <!-- <div v-if="listView == false" class="ps-shopping-product"> -->
                 <div class="row">
                     <div
-                        v-for="product in products"
+                        v-for="product in pageOfItems"
                         class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 "
                         :key="product.id"
                     >
@@ -52,22 +57,24 @@
                     </div>
                 </div>
                 <footer class="mt-30">
-                    <v-pagination
+                    <jw-pagination :items="arcones" :pageSize="24" @changePage="onChangePage"></jw-pagination>
+                    <!-- <v-pagination
                         color="#fcb800"
                         total-visible="8"
                         v-model="page"
                         :length="paginationLenght"
                         @input="handleChangePagination"
-                    />
+                    /> -->
                 </footer>
             </div>
-            <div v-else class="ps-shopping-product">
+            <!-- <div v-else class="ps-shopping-product">
                 <product-wide
-                    v-for="product in products"
+                    v-for="product in pageOfItems"
                     :product="product"
                     :key="product.id"
                 />
                 <footer class="mt-30">
+                    <jw-pagination :items="products" @changePage="onChangePage" ></jw-pagination>
                     <v-pagination
                         color="#fcb800"
                         v-model="page"
@@ -76,7 +83,8 @@
                         @input="handleChangePagination"
                     />
                 </footer>
-            </div>
+            </div> -->
+            
         </div>
     </div>
 </template>
@@ -93,9 +101,11 @@ export default {
     components: { ProductWide, BestSaleItems, RecommendItems, ProductDefault },
     computed: {
         ...mapState({
-            products: state => state.product.products,
-            total: state => state.product.total,
-            queries: state => state.collection.queries
+            products: (state) => state.product.products,
+            // total: (state) => state.product.total,
+            total: (state) => state.arcones.total,
+            queries: (state) => state.collection.queries,
+            arcones: (state) => state.arcones.arcones,
         }),
         paginationLenght() {
             if (this.total % 12 === 0) {
@@ -103,27 +113,36 @@ export default {
             } else {
                 return parseInt(this.total / 12 + 1);
             }
-        }
+        },
     },
     data() {
         return {
             listView: false,
             page: 1,
-            pageSize: 12
+            pageSize: 12,
+            pageOfItems: [],
+            option: null,
         };
     },
     methods: {
         async handleChangePagination(value) {
             const params = {
                 _start: value === 1 ? 0 : (value - 1) * 12,
-                _limit: 12
+                _limit: 12,
             };
             await this.$store.dispatch('product/getProducts', params);
         },
         handleChangeViewMode() {
             this.listView = !this.listView;
-        }
-    }
+        },
+        onChangePage(pageOfItems) {
+            // update page of items
+            this.pageOfItems = pageOfItems;
+        },
+        onChange(sort) {
+            this.$store.dispatch('arcones/getSortarcon', sort);
+        },
+    },
 };
 </script>
 

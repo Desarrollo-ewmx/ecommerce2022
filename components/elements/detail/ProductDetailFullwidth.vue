@@ -1,10 +1,10 @@
 <template lang="html">
     <div class="ps-product--detail ps-product--fullwidth">
         <div class="ps-product__header">
-            <thumbnail-default />
-            <information-default />
+            <thumbnail-default :arcon="arcon" />
+            <information-default :arcon="arcon" />
         </div>
-        <default-description />
+        <default-description :arcon="arcon" />
     </div>
 </template>
 
@@ -14,7 +14,14 @@ import InformationDefault from '~/components/elements/detail/information/Informa
 import ThumbnailDefault from '~/components/elements/detail/thumbnail/ThumbnailDefault';
 export default {
     name: 'ProductDetailFullwidth',
-    components: { ThumbnailDefault, InformationDefault, DefaultDescription }
+    components: { ThumbnailDefault, InformationDefault, DefaultDescription },
+    props: {
+        arcon: {
+            type: Object,
+            require: true,
+            default: () => {},
+        },
+    },
 };
 </script>
 

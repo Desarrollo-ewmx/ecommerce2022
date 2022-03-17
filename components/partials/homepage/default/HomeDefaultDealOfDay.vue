@@ -5,9 +5,10 @@
             <div class="ps-section__header">
                 <div class="ps-block--countdown-deal">
                     <div class="ps-block__left">
-                        <h3>Deal of the day</h3>
+                        <h3>Arcon del dia</h3>
+                        <i class="fa fa-youtube"></i>
                     </div>
-                    <div class="ps-block__right">
+                    <!-- <div class="ps-block__right">
                         <figure>
                             <figcaption>End in:</figcaption>
                             <count-down-simple
@@ -15,10 +16,10 @@
                                 format="MM DD YYYY, h:mm a"
                             />
                         </figure>
-                    </div>
+                    </div> -->
                 </div>
                 <nuxt-link to="/shop">
-                    {{ $t('common.viewAll') }}
+                    {{ $t('Ver todos') }}
                 </nuxt-link>
             </div>
             <div class="ps-section__content">
@@ -28,7 +29,7 @@
                     v-swiper:dealOfDayCarousel="carouselSetting"
                 >
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="product in products">
+                        <div class="swiper-slide" v-for="product in arconday">
                             <product-inner
                                 :product="product"
                                 :key="product.id"
@@ -109,7 +110,33 @@ export default {
                     },
                 },
             },
+            cya: [],
+            arconday: [],
         };
+    },
+    methods: {
+        async getproducts() {
+            var resp = await this.$store.dispatch('arcones/setarmados');
+            const result = this.$store.getters['arcones/getproducts'];
+            console.log('Tiene el arreglo: ' + result.length);
+            var num = Math.random() * (result.length - 10 - 0);
+            console.log('Saque el numero: ' + Math.round(num));
+            console.log(result[Math.round(num)]);
+            const limit = Math.round(num);
+            this.cya = result;
+            for (let index = limit - 10; index < limit; index++) {
+                this.arconday.push(this.cya[index]);
+                console.log('Agregue: ' + this.cya[index]);
+            }
+            console.log('Tengo: ' + this.arconday.length);
+            console.log(this.cya[5].ruta_Completa);
+            this.img = this.cya[0].ruta_Completa;
+            this.img2 = this.cya[1].ruta_Completa;
+            this.img3 = this.cya[2].ruta_Completa;
+        },
+    },
+    beforeMount() {
+        this.getproducts();
     },
 };
 </script>

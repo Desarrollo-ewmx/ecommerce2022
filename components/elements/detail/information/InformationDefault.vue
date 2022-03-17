@@ -1,14 +1,14 @@
 <!-- FIXME: Modulo de producto individual -->
 <template lang="html">
     <div class="ps-product__info">
-        <module-product-info :product="product" />
+        <module-product-info :arcon="arcon" />
 
-        <module-product-detail-desc :product="product" />
+        <module-product-detail-desc :product="product" :arcon="arcon" />
 
         <!-- Tabla de cotizaciones por producto -->
         <module-tabla-cotizaciones-producto />
 
-        <module-product-shopping :product="product" />
+        <module-product-shopping :product="product" :arcon="arcon" />
 
         <module-product-detail-specification />
 
@@ -35,14 +35,21 @@ export default {
         ModuleProductDetailDesc,
         ModuleTablaCotizacionesProducto,
         ModuleProductDetailSpecification,
-        ModuleProductDetailSharing
+        ModuleProductDetailSharing,
+    },
+    props: {
+        arcon: {
+            type: Object,
+            require: true,
+            default: () => {},
+        },
     },
     computed: {
         ...mapState({
-            product: state => state.product.product,
-            cotizaciones: state => state.cotizacion.cotizaciones
-        })
-    }
+            product: (state) => state.product.product,
+            cotizaciones: (state) => state.cotizacion.cotizaciones,
+        }),
+    },
 };
 </script>
 

@@ -2,9 +2,10 @@
     <div class="ps-product ps-product--inner">
         <div class="ps-product__thumbnail">
             <nuxt-link :to="`/product/${product.id}`">
-                <img
-                    :src="`${baseUrl}${product.thumbnail.url}`"
-                    alt="martfury"
+            <img v-if="product.ruta_Completa == ''" src="/img/sin.jpg"/>
+                <img v-else
+                    :src="product.ruta_Completa"
+                    alt="Sin imagen"
                 />
             </nuxt-link>
             <div v-if="isSale === true" class="ps-product__badge">sale</div>
@@ -66,21 +67,21 @@
                     v-if="product.is_sale === true"
                     class="ps-product__price sale"
                 >
-                    {{ currency }}{{ product.price }}
+                    {{ currency }}{{ product.precio_redondeado }}
                     <del class="ml-1">
-                        {{ currency }}{{ product.sale_price }}</del
+                        {{ currency }}{{ product.precio_redondeado }}</del
                     >
                     <small>18% off</small>
                 </p>
                 <p v-else class="ps-product__price">
-                    {{ currency }}{{ product.price }}
+                    {{ currency }}{{ product.precio_redondeado }}
                 </p>
                 <nuxt-link
                     :to="`/product/${product.id}`"
                     class="ps-product__title"
                 >
                 
-                    {{ product.title }}
+                    {{ product.nombre_armado }}
                 </nuxt-link>
                 <div class="ps-product__rating">
                     <rating />
@@ -96,7 +97,7 @@
                     >
                         Sold: {{ product.inventory - product.depot }}
                     </p>
-                    <p v-else class="mb-0">Sold: {{ product.inventory }}</p>
+                    <p v-else class="mb-0">Gama: {{ product.gama }}</p>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
                 <a class="list-item">Description</a>
             </v-tab>
             <v-tab :ripple="false" tag="li">
-                <a class="list-item">Specification</a>
+                <a class="list-item">Especificaciones</a>
             </v-tab>
             <v-tab :ripple="false" tag="li">
                 <a class="list-item">
@@ -29,7 +29,7 @@
 
             <v-tab-item>
                 <div class="tab-content">
-                    <partial-specification />
+                    <partial-specification :arcon="arcon" />
                 </div>
             </v-tab-item>
 
@@ -72,8 +72,15 @@ export default {
         PartialReview,
         PartialVendor,
         PartialSpecification,
-        PartialDescription
-    }
+        PartialDescription,
+    },
+    props: {
+        arcon: {
+            type: Object,
+            require: true,
+            default: () => {},
+        },
+    },
 };
 </script>
 
