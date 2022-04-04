@@ -4,18 +4,15 @@
         <div class="ps-order-tracking">
             <div class="container">
                 <div class="ps-section__header">
-                    <h3>Cotizaciones</h3>
-                    <p>
-                        Desde esta ventana podrás consultar tus cotizaciones, editarlas o
-                        cancelarlas
-                    </p>
+                    <h3>Cotizar envio</h3>
                 </div>
                 <div>
-                    <Cotizacioncrear />
+                    <Cotizarcp />
                 </div>
+                <Tablaenvios />
                 <!-- <Cotizaciones class="p-2" /> -->
 
-                <TablaCotizaciones class="p-0" />
+                <!-- <TablaCotizaciones class="p-0" /> -->
             </div>
         </div>
     </section>
@@ -24,10 +21,9 @@
 <script>
 import { mapState } from 'vuex';
 import BreadCrumb from '~/components/elements/BreadCrumb';
-import TablaCotizaciones from '~/components/partials/account/modules/TablaCotizaciones';
+import Tablaenvios from '~/components/partials/account/modules/Tablaenvios';
 import HeaderMobile from '~/components/shared/mobile/HeaderMobile';
-import Cotizaciones from '~/components/partials/account/modules/Cotizaciones';
-import Cotizacioncrear from '~/components/partials/account/modules/Cotizacioncrear';
+import Cotizarcp from '~/components/partials/account/modules/Cotizarcp';
 
 export default {
     middleware: 'validation',
@@ -35,9 +31,8 @@ export default {
     components: {
         HeaderMobile,
         BreadCrumb,
-        TablaCotizaciones,
-        Cotizaciones,
-        Cotizacioncrear,
+        Tablaenvios,
+        Cotizarcp,
     },
     ...mapState({
         cartItems: (state) => state.cart.cartItems,

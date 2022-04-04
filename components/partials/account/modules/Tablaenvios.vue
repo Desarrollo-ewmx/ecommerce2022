@@ -4,37 +4,25 @@
             <table class="table table-hover table-fixed ps-table--shopping-cart">
                 <thead>
                     <tr>
-                        <th>Serie</th>
-                        <th>Total de arcones</th>
-                        <th>Total - Precio</th>
+                        <th>Cantidad</th>
+                        <th>Nombre-serie</th>
+                        <th>Estado</th>
+                        <th>Total</th>
+                        <th>Costo de envio</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(cotizacion, index) in cotizaciones" :key="cotizacion.index">
-                        <td>{{ cotizacion.serie }}</td>
-                        <td>{{ cotizacion.arcones_totales }}</td>
-                        <td class="price">${{ cotizacion.total }}</td>
+                    <tr
+                        v-for="(arcon, index) in cotizacionesactv.arcones"
+                        :key="cotizacionesactv.index"
+                    >
+                        <td>{{ arcon.cantidad }}</td>
+                        <td>{{ arcon.nombre }}</td>
+                        <td>fondo de bikini</td>
+                        <td class="price">${{ arcon.precio_unitario_sin_iva }}</td>
+                        <td>pendiente</td>
                         <td>
-                            <v-tooltip left>
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                        href="#"
-                                        @click.prevent="editItem(index)"
-                                        v-b-modal.modal-prevent-closing
-                                        class="mx-2"
-                                        fab
-                                        dark
-                                        small
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="indigo"
-                                    >
-                                        <v-icon>mdi-pencil</v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>Editar</span>
-                            </v-tooltip>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn
@@ -66,7 +54,7 @@
                                         v-on="on"
                                         color="red"
                                     >
-                                        <v-icon dark>mdi-minus</v-icon>
+                                        <v-icon dark>mdi-delete</v-icon>
                                     </v-btn>
                                 </template>
                                 <span>Borrar</span>
@@ -122,7 +110,7 @@
 import { mapState } from 'vuex';
 
 export default {
-    name: 'TablaCotizaciones',
+    name: 'Tablaenvios',
     data() {
         return {
             nameState: null,
@@ -149,6 +137,7 @@ export default {
             total: (state) => state.cart.total,
             amount: (state) => state.cart.amount,
             cotizaciones: (state) => state.cotizacionarcon.cotizaciones,
+            cotizacionesactv: (state) => state.cotizacionarcon.cotizacionactv,
         }),
     },
 

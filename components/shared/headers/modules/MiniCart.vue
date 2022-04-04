@@ -3,41 +3,38 @@
         <a class="header__extra" href="#">
             <i class="icon-bag2"></i>
             <span>
-                <i>{{ cotizaciones.length }}</i>
+                <i>{{ cotizacionesactv.arcones_totales }}</i>
             </span>
         </a>
         <div v-if="cotizaciones.length > 0" class="ps-cart__content">
             <div class="ps-cart__items">
-                   
-            <div class="ps-cart__footer">
-              <!---  <h2>{{ cotizaciones.name }}</h2> ---->
-                <h3>
-                    {{ $t('header.miniCart.subTotal') }}
-                    <strong>${{ amount }}</strong>
-                </h3>
-                <figure>
-                    <div>
-                        <nuxt-link to="/account/shopping-cart" class="ps-btn">
-                            {{ $t('header.miniCart.viewCart') }}
-                        </nuxt-link>
-                    </div>
-                    <div>
-                        <nuxt-link to="/account/checkout" class="ps-btn">
-                            {{ $t('header.miniCart.checkout') }}
-                        </nuxt-link>
-                    </div>
-                </figure>
+                <div class="ps-cart__footer">
+                    <!---  <h2>{{ cotizaciones.name }}</h2> ---->
+                    <h3>
+                        {{ $t('header.miniCart.subTotal') }}
+                        <strong>${{ cotizacionesactv.total }}</strong>
+                    </h3>
+                    <figure>
+                        <div>
+                            <nuxt-link
+                                to="/account/shopping-cart"
+                                class="ps-btn"
+                            >{{ $t('header.miniCart.viewCart') }}</nuxt-link>
+                        </div>
+                        <div>
+                            <nuxt-link
+                                to="/account/checkout"
+                                class="ps-btn"
+                            >{{ $t('header.miniCart.checkout') }}</nuxt-link>
+                        </div>
+                    </figure>
+                </div>
             </div>
-             
-        </div>
         </div>
         <div v-else class="ps-cart__content">
-            <div class="ps-cart__items no-products">
-                {{ $t('header.miniCart.noProduct') }}
-            </div>
-        </div> 
-               
-            </div>
+            <div class="ps-cart__items no-products">{{ $t('header.miniCart.noProduct') }}</div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -56,7 +53,8 @@ export default {
             loading: (state) => state.cart.loading,
             cartItems: (state) => state.cart.cartItems,
             cartProducts: (state) => state.product.cartProducts,
-            cotizaciones: (state) => state.cotizacion.cotizaciones,
+            cotizaciones: (state) => state.cotizacionarcon.cotizaciones,
+            cotizacionesactv: (state) => state.cotizacionarcon.cotizacionactv,
         }),
         baseUrl() {
             return baseUrl;

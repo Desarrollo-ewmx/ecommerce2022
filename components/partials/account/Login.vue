@@ -1,48 +1,72 @@
 <template lang="html">
-<form>
-    <div class="ps-form__content">
-        <h5>Log In Your Account</h5>
-        <div class="form-group">
-            <v-text-field v-model="username" class="ps-text-field" :error-messages="usernameErrors" @input="$v.username.$touch()" placeholder="Usernamer or email" height="50" outlined />
+    <form>
+        <div class="ps-form__content">
+            <h5>Log In Your Account</h5>
+            <div class="form-group">
+                <v-text-field
+                    v-model="username"
+                    class="ps-text-field"
+                    :error-messages="usernameErrors"
+                    @input="$v.username.$touch()"
+                    placeholder="Usernamer or email"
+                    height="50"
+                    outlined
+                />
+            </div>
+            <div class="form-group">
+                <v-text-field
+                    v-model="password"
+                    type="password"
+                    class="ps-text-field"
+                    :error-messages="passwordErrors"
+                    @input="$v.password.$touch()"
+                    placeholder="Please enter password"
+                    height="50"
+                    outlined
+                />
+            </div>
+            <div class="form-group">
+                <v-checkbox label="Remember me" color="warning" />
+            </div>
+            <div class="form-group submit">
+                <button
+                    type="submit"
+                    class="ps-btn ps-btn--fullwidth"
+                    @click.prevent="handleSubmit"
+                >Login</button>
+            </div>
+            <div align="right">
+                <nuxt-link to="/#">
+                    <p style="color:blue;">Olvide mi contraseña</p>
+                </nuxt-link>
+            </div>
         </div>
-        <div class="form-group">
-            <v-text-field v-model="password" type="password" class="ps-text-field" :error-messages="passwordErrors" @input="$v.password.$touch()" placeholder="Please enter password" height="50" outlined />
+        <div class="ps-form__footer">
+            <p>Connect with:</p>
+            <ul class="ps-list--social">
+                <li>
+                    <a href="#" class="facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="google">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="instagram">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="form-group">
-            <v-checkbox label="Remember me" color="warning" />
-        </div>
-        <div class="form-group submit">
-            <button type="submit" class="ps-btn ps-btn--fullwidth" @click.prevent="handleSubmit">
-                Login
-            </button>
-        </div>
-    </div>
-    <div class="ps-form__footer">
-        <p>Connect with:</p>
-        <ul class="ps-list--social">
-            <li>
-                <a href="#" class="facebook">
-                    <i class="fa fa-facebook"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="google">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="twitter">
-                    <i class="fa fa-twitter"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="instagram">
-                    <i class="fa fa-instagram"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</form>
+    </form>
 </template>
 
 <script>

@@ -66,23 +66,22 @@
                 />
             </div>
             <div class="form-group">
-                <v-text-field v-model="confirmpass" :error-messages="samepasswordErrors" @input="$v.confirmpass.$touch()" placeholder="confirm password" class="ps-text-field" outlined height="50" prepend-icon="icon-key" type="password">
-                </v-text-field>
+                <v-text-field
+                    v-model="confirmpass"
+                    :error-messages="samepasswordErrors"
+                    @input="$v.confirmpass.$touch()"
+                    placeholder="confirm password"
+                    class="ps-text-field"
+                    outlined
+                    height="50"
+                    prepend-icon="icon-key"
+                    type="password"
+                ></v-text-field>
             </div>
             <div class="form-group submit">
-                <button
-                    type="submit"
-                    class="ps-btn ps-btn--fullwidth"
-                >
-                    Registrar usuario
-                </button>
-                <div align="right">
-                    <nuxt-link to="/#">
-                        <p style="color:blue;">Olvide mi contraseña</p>
-                    </nuxt-link>
-                </div>
+                <button type="submit" class="ps-btn ps-btn--fullwidth">Registrar usuario</button>
             </div>
-            </div>
+        </div>
         <div class="ps-form__footer">
             <p>Connect with:</p>
 

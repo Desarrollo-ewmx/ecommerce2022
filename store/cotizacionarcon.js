@@ -1,90 +1,87 @@
+import Repository, { serializeQuery } from '~/repositories/Repository.js';
+import { apiURL } from '~/repositories/Repository';
 export const state = () => ({
-    cotizacionarcon: {   
-        nombreCot:null,
-        cantTotalArc:null,
-        cantxTipoArc:null,
-        tipoArcon:null,
-        cantxCP:null,
-        cp:null
-    }
+    cotizacionarcon: {
+        nombreCot: null,
+        cantTotalArc: null,
+        cantxTipoArc: null,
+        tipoArcon: null,
+        cantxCP: null,
+        cp: null
+    },
+    cotizaciones: [],
+    cotizacionactv: []
 });
 
-export const mutations ={
-    init(state,payload){
-        console.log("Entra a la mutations",state);
-        state.cotizacionarcon.nombreCot = payload.nombreCot;
-        state.cotizacionarcon.cantTotalArc = payload.cantTotalArc;
-        state.cotizacionarcon.cantxTipoArc = payload.cantxTipoArc;
-        state.cotizacionarcon.tipoArcon = payload.tipoArcon ;
-        state.cotizacionarcon.cantxCP = payload.cantxCP;
-        state.cotizacionarcon.cp = payload.cp;
-    },
-    addcot(state, payload){
+export const mutations = {
+    addcot(state, payload) {
         payload = JSON.parse(JSON.stringify(payload));
-        console.log("Desde mutation",{payload});
-        state.cotizacionarcon.push(payload)
+        console.log('Desde mutation', { payload });
+        state.cotizacionarcon.push(payload);
+    },
+    setcotizaciones(state, payload) {
+        state.cotizaciones = payload;
+    },
+    setcotizacionact(state, payload) {
+        state.cotizacionactv = payload;
     }
-    //---------------------Referencia que puede ayudar--------------------
-    //AddQuantityRandom(state, payload) {
-    //    let selectedItem = state.cartItems.find(item => item.id === payload.id);
-    //    if (selectedItem) {
-    //        state.total = parseInt((state.total - selectedItem.quantity) + payload.cantidad,10);
-    //        selectedItem.quantity = payload.cantidad;
-    //        state.amount = calculateAmount(state.cartItems);
-    //    }
-    //},
-    //------------------Referencia que puede ayudar termina------------------
-    //setCotArcon(state,payload){
-    //    console.log("Desde set",payload);
-        //state.nombreCot = payload.nombreCot,
-        //state.cantTotalArc = payload.cantTotalArc,
-        //state.setCantxTipoarc = payload.setCantxTipoarc,
-        //state.tipoArcon = payload.tipoArcon,
-        //state.cantxCP = payload.cantxCP,
-        //state.cp = payload.cp
-    //},
-
-    //setNombreCot(state,payload){
-    //    state.nombreCot = payload;
-    //},
-    //setCantTotal(state,payload){
-    //    state.cantTotalArc =payload;
-    //},
-    //setCantxTipoarc(state,payload){
-    //    state.setCantxTipoarc = payload;
-    //},
-    //setArc(state,payload){
-    //    state.tipoArcon = payload;
-    //},
-    //setCantxCP(state,payload){
-    //    state.cantxCP = payload;
-    //},
-    //setCP(state,payload){
-    //    state.cp = payload;
-    //}
 };
 
 export const actions = {
-    //jalardatos({commit},payload){
-    //    commit('init',payload);
-    //    console.log("Desde actions",payload);
-    //}
-    getCotArcon({ commit,state }, payload) {
-        console.log("Esta llegando a getCotarcon");
-        commit('init',payload);
-        const cookieParams = {
-            nombreCot: state.nombreCot,
-            cantTotalArc: state.cantTotalArc,
-            cantxTipoArc: state.cantxTipoArc,
-            tipoArcon: state.tipoArcon,
-            cantxCP: state.cantxCP,
-            cp: state.cp
+    async setCotArcon({ commit, state }, payload) {
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            console.log(
+                `${apiURL}/cot?estat=${payload.status}&tot_arm=${payload.cantTotalArc}&cost_env=${payload.constenv}&desc=${payload.desc}&sub_total=${payload.subtotal}&iva=${payload.iva}&com=${payload.comision}&tot=${payload.total}&user_id=${payload.id}&desc_cot=nada&token=${token}`
+            );
+            const response = await Repository.post(
+                `${apiURL}/cot?estat=${payload.status}&tot_arm=${payload.cantTotalArc}&cost_env=${payload.constenv}&desc=${payload.desc}&sub_total=${payload.subtotal}&iva=${payload.iva}&com=${payload.comision}&tot=${payload.total}&user_id=${payload.id}&desc_cot=nada&token=${token}`
+            ).then(response => {
+                //  commit('setProducts', response.data);
+                return response.data;
+            });
+        } catch (error) {
+            console.log(error);
         }
-        
-        this.$cookies.set('cotizacionarcon', cookieParams, {
-            path: '/',
-            maxAge: 60 * 60 * 24 * 7
-        });
-        console.log("Esta es la cookie",cookieParams);
     },
+
+    async getCot({ commit, state }, payload) {
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.get(
+                `${apiURL}/cotizacion?user_id=${payload}&token=${token}`
+            ).then(response => {
+                const result = JSON.parse(JSON.stringify(response.data));
+                const cont = JSON.parse(
+                    JSON.stringify(result.data.cotizaciones)
+                );
+                console.log('Obtenido');
+                console.log(cont);
+                commit('setcotizaciones', cont);
+                return response.data;
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getactiva({ commit, state }, payload) {
+        commit('setcotizacionact', payload);
+    },
+    async deletecot({ commit, state }, payload) {
+        try {
+            const response = await Repository.get(
+                `${apiURL}/cotizaciond/${payload}`
+            ).then(response => {
+                const result = JSON.parse(JSON.stringify(response.data));
+                const cont = JSON.parse(JSON.stringify(result.data.message));
+                console.log('Obtenido');
+                console.log(cont);
+                return cont;
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 };

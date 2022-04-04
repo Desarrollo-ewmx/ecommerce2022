@@ -60,6 +60,7 @@ export const actions = {
             commit('setUsuario', payload.username);
             commit('setNombre', info.nom);
             commit('setImg', url);
+            localStorage.setItem('id', info.id);
             this.$cookies.set('user', state.correo);
             console.log(this.$cookies.get('user'));
             console.log(
@@ -77,6 +78,7 @@ export const actions = {
     },
 
     deletesesion({ commit, state }) {
+        localStorage.removeItem('id');
         commit('deleteUsuario');
         this.$cookies.remove('user');
         console.log(this.$cookies.get('user'));
@@ -110,6 +112,28 @@ export const actions = {
             const arma = JSON.parse(JSON.stringify(result.message));
             const resp = arma;
             return resp;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async image({ commit, state }, payload) {
+        try {
+            var formData = new FormData();
+
+            formData.append('img', payload.img);
+            console.log(payload);
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.post(
+                `${apiURL}/userupdate?id=${payload.id}&token=${token}&nom=${payload.nom}&tel_mov=${payload.tel_mov}&password=${payload.password}`,
+                formData
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            console.log(result);
+            // const data = await arma.json();
+            // const arma = JSON.parse(JSON.stringify(result.message));
+            // const resp = arma;
+            return result;
         } catch (error) {
             console.log(error);
         }
