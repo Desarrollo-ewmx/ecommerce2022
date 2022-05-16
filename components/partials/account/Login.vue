@@ -23,6 +23,9 @@
                     placeholder="Please enter password"
                     height="50"
                     outlined
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show1 ? 'text' : 'password'"
+                    @click:append="show1 = !show1"
                 />
             </div>
             <div class="form-group">
@@ -36,7 +39,7 @@
                 >Login</button>
             </div>
             <div align="right">
-                <nuxt-link to="/#">
+                <nuxt-link to="/account/forget">
                     <p style="color:blue;">Olvide mi contraseña</p>
                 </nuxt-link>
             </div>
@@ -99,6 +102,7 @@ export default {
             },
             username: null,
             password: null,
+            show1: false,
         };
     },
     validations: {

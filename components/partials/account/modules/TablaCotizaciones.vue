@@ -4,6 +4,7 @@
             <table class="table table-hover table-fixed ps-table--shopping-cart">
                 <thead>
                     <tr>
+                        <th>Nombre</th>
                         <th>Serie</th>
                         <th>Total de arcones</th>
                         <th>Total - Precio</th>
@@ -12,24 +13,15 @@
                 </thead>
                 <tbody>
                     <tr v-for="(cotizacion, index) in cotizaciones" :key="cotizacion.index">
+                        <td>{{ cotizacion.nom }}</td>
                         <td>{{ cotizacion.serie }}</td>
                         <td>{{ cotizacion.arcones_totales }}</td>
                         <td class="price">${{ cotizacion.total }}</td>
                         <td>
                             <v-tooltip left>
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                        href="#"
-                                        @click.prevent="editItem(index)"
-                                        v-b-modal.modal-prevent-closing
-                                        class="mx-2"
-                                        fab
-                                        dark
-                                        small
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="indigo"
-                                    >
+                                    <v-btn href="#" @click.prevent="editItem(index)" v-b-modal.modal-prevent-closing
+                                        class="mx-2" fab dark small v-bind="attrs" v-on="on" color="indigo">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                 </template>
@@ -37,35 +29,20 @@
                             </v-tooltip>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                        class="mx-2"
-                                        fab
-                                        dark
-                                        small
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="green"
-                                    >
-                                        <v-icon>mdi-check</v-icon>
-                                    </v-btn>
+                                    <nuxt-link to="/account/cotizarenvio">
+                                        <v-btn class="mx-2" fab dark small v-bind="attrs" v-on="on" color="green">
+                                            <v-icon>mdi-check</v-icon>
+                                        </v-btn>
+                                    </nuxt-link>
                                 </template>
                                 <span>Ingresar</span>
                             </v-tooltip>
 
                             <v-tooltip right>
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                        href="#"
-                                        @click.prevent="passid(cotizacion.id, cotizacion.arcones_totales)"
-                                        v-b-modal.modal-prevent-delete
-                                        class="mx-2"
-                                        fab
-                                        dark
-                                        small
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="red"
-                                    >
+                                    <v-btn href="#" @click.prevent="passid(cotizacion.id, cotizacion.arcones_totales)"
+                                        v-b-modal.modal-prevent-delete class="mx-2" fab dark small v-bind="attrs"
+                                        v-on="on" color="red">
                                         <v-icon dark>mdi-minus</v-icon>
                                     </v-btn>
                                 </template>
@@ -82,38 +59,17 @@
 
             <!-- <pre>Store: {{ cotizaciones }}</pre> -->
 
-            <b-modal
-                id="modal-prevent-closing"
-                ref="modal"
-                title="Ingresa el nombre de la cotización"
-                @show="resetModal"
-                @hidden="resetModal"
-                @ok="handleOk"
-            >
+            <b-modal id="modal-prevent-closing" ref="modal" title="Ingresa el nombre de la cotización"
+                @show="resetModal" @hidden="resetModal" @ok="handleOk">
                 <form ref="form" @submit.stop.prevent="handleSubmit">
-                    <b-form-group
-                        label="Cotización"
-                        label-for="name-input"
-                        invalid-feedback="El nombre es un elemento requerido"
-                        :state="nameState"
-                    >
-                        <b-form-input
-                            id="name-input"
-                            v-model="cotItem.name"
-                            :state="nameState"
-                            required
-                        ></b-form-input>
+                    <b-form-group label="Cotización" label-for="name-input"
+                        invalid-feedback="El nombre es un elemento requerido" :state="nameState">
+                        <b-form-input id="name-input" v-model="cotname" :state="nameState" required></b-form-input>
                     </b-form-group>
                 </form>
             </b-modal>
-            <b-modal
-                id="modal-prevent-delete"
-                ref="modal"
-                title="¿Desea eliminar esta cotizacion?"
-                @show="resetModal"
-                @hidden="resetModal"
-                @ok="handleDetok"
-            ></b-modal>
+            <b-modal id="modal-prevent-delete" ref="modal" title="¿Desea eliminar esta cotizacion?" @show="resetModal"
+                @hidden="resetModal" @ok="handleDetok"></b-modal>
         </div>
     </div>
 </template>
@@ -140,6 +96,11 @@ export default {
             indice: -1,
             cotid: null,
             cotcant: null,
+            cotname: '',
+            changename: {
+                id: '',
+                nom: ''
+            }
         };
     },
 
@@ -166,7 +127,8 @@ export default {
 
         handleOk(bvModalEvt) {
             bvModalEvt.preventDefault();
-            this.handleSubmit();
+            // this.handleSubmit();
+            this.editcot(this.cotid, this.cotname)
         },
         handleDetok(bvModalEvt) {
             bvModalEvt.preventDefault();
@@ -195,14 +157,37 @@ export default {
 
         editItem(index) {
             let cotizacion = this.cotizaciones[index]; // Mandamos a traer el item que deseamos editar
+            this.cotname = cotizacion.nom
+            this.cotid = cotizacion.id
             this.indice = index; // Igualamos el indice del item que deseamos editar
             // this.name = cotizacion.serie; // Mandamos a hablar al nombre del item qu
+            console.log("Editaras: " + this.cotItem.name)
             console.log(cotizacion.serie);
+            // async changename({ commit, state }, payload) {
+
         },
         passid(id, cant) {
             this.cotid = id;
             this.cotcant = cant;
             console.log('El arcon con id: ' + this.cotid + 'tiene ' + this.cotcant + 'arcones')
+        },
+
+        async editcot(id, name) {
+            console.log("Editare el nombre: " + name + " con id: " + id)
+            this.changename.id = id
+            this.changename.nom = name
+            console.log(this.changename)
+            const msg = await this.$store.dispatch('cotizacionarcon/changename', this.changename);
+            this.$notify({
+                group: 'addCartSuccess',
+                title: 'Hecho',
+                text: msg,
+                type: 'danger',
+            });
+            await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
+            this.$nextTick(() => {
+                this.$bvModal.hide('modal-prevent-closing');
+            });
         },
 
         async deleteItem(id) {

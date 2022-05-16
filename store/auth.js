@@ -79,6 +79,7 @@ export const actions = {
 
     deletesesion({ commit, state }) {
         localStorage.removeItem('id');
+        localStorage.removeItem('idcot');
         commit('deleteUsuario');
         this.$cookies.remove('user');
         console.log(this.$cookies.get('user'));
@@ -134,6 +135,41 @@ export const actions = {
             // const arma = JSON.parse(JSON.stringify(result.message));
             // const resp = arma;
             return result;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    async sendcode({ commit, state }, payload) {
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.post(
+                `${apiURL}/msgpassemail?email=${payload}&token=${token}`
+            );
+            console.log('Ya termine');
+            const result = JSON.parse(JSON.stringify(response.data));
+            const arma = JSON.parse(JSON.stringify(result.message));
+            console.log('Me responde esto');
+            console.log(arma);
+            return arma;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async changepass({ commit, state }, payload) {
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.post(
+                `${apiURL}/msgpass?email=${payload.email}&password=${payload.password}&pass_token=${payload.code}&token=${token}`
+            );
+            console.log('Ya termine');
+            const result = JSON.parse(JSON.stringify(response.data));
+            const arma = JSON.parse(JSON.stringify(result.message));
+            console.log('Me responde esto');
+            console.log(arma);
+            return arma;
         } catch (error) {
             console.log(error);
         }

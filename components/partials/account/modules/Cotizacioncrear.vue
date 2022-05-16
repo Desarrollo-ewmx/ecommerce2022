@@ -4,13 +4,8 @@
             <div align="center">
                 <div class="form-check-inline">
                     <label>Nombre de la cotizacion</label>
-                    <b-form-input
-                        v-model="cotizacionarcon.nombreCot"
-                        type="text"
-                        class="form-control col-md-5 mr-4"
-                        id="validacionNombre"
-                        required
-                    ></b-form-input>
+                    <b-form-input v-model="cotizacionarcon.nombreCot" type="text" class="form-control col-md-5 mr-4"
+                        id="validacionNombre" required></b-form-input>
                     <b-button pill type="submit" class="ps-btn mr-4">Crear</b-button>
                 </div>
             </div>
@@ -58,10 +53,16 @@ export default {
         },
         async crearcotizacion() {
             this.cotizacionarcon.id = localStorage.id;
-            await this.$store.dispatch(
+            let msg = await this.$store.dispatch(
                 'cotizacionarcon/setCotArcon',
                 this.cotizacionarcon
             );
+            this.$notify({
+                group: 'addCartSuccess',
+                title: 'Hecho',
+                text: msg,
+                type: 'danger',
+            });
             console.log('Volvere a recargar');
             await this.$store.dispatch(
                 'cotizacionarcon/getCot',

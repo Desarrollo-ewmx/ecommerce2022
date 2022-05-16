@@ -6,7 +6,7 @@
                 <header-mobile />
                 <nuxt></nuxt>
                 <notify />
-                <newsletters />
+                <!-- <newsletters /> -->
                 <footer-default />
                 <navigation-list />
                 <mobile-drawer />

@@ -133,7 +133,7 @@ export default {
     },
     methods: {
         //  cantidadTotalDeseada(quantity){
-        //    var quantity= this.quantity;
+        //    var quantity= this.quantity; 
         //    for(var i=0; i>=quantity.length;i++){
         //
         //    }

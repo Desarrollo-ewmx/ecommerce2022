@@ -2,7 +2,7 @@
     <div class="ps-cart--mini">
         <a class="header__extra" href="#">
             <i class="icon-bag2"></i>
-            <span>
+            <span v-if="cotizacionesactv != null">
                 <i>{{ cotizacionesactv.arcones_totales }}</i>
             </span>
         </a>

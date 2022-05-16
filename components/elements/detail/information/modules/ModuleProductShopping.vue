@@ -9,37 +9,28 @@
                     </button>
                     <div v-if="quantity > 1">
                         <button class="down" @click.prevent="handleDescreaseQuantity">
-                        <i class="fa fa-minus"></i>
-                    </button>
+                            <i class="fa fa-minus"></i>
+                        </button>
                     </div>
-                    <input
-                        v-model="quantity"
-                        class="form-control"
-                        type="text"
-                        min=1
-                        style="display:block"
-                        @change="checkquantity"
-                    />
+                    <input v-model="quantity" class="form-control" type="text" min=1 style="display:block"
+                        @change="checkquantity" />
                 </div>
             </figure>
             <!-- Seleccionar cotización y dar aceptar para la que se va a pintar en el carrito  -->
-            <b-button class="ml-2 mt-2" variant="info" size="lg" @click.prevent="handleAddToCart">Aceptar</b-button>
+            <b-button class="ml-2 mt-2" variant="info" size="lg" @click.prevent="handleAddToCart">Agregar</b-button>
         </div>
         <div>
             <div>
-                <nuxt-link 
-                size="lg"
-                class="ps-btn mt-2 ml-2 float-right"
-                to="/account/cotizaciones">
+                <nuxt-link size="lg" class="ps-btn mt-2 ml-2 float-right" to="/account/cotizaciones">
                     Crear nueva cotizacion
                 </nuxt-link>
             </div>
         </div>
-            <figcaption>
-                <v-btn v-if="incart > 0 " color="success" class="mt-2" to="/account/shopping-cart"> 
-                    <i class="icon-bag2" style="font-size:2em"></i> <span class="" style="font-size:2em">{{ incart }}</span>
-                </v-btn>
-            </figcaption>
+        <figcaption>
+            <v-btn v-if="incart > 0" color="success" class="mt-2" to="/account/shopping-cart">
+                <i class="icon-bag2" style="font-size:2em"></i> <span class="" style="font-size:2em">{{ incart }}</span>
+            </v-btn>
+        </figcaption>
     </div>
 </template>
 <script>
@@ -50,12 +41,12 @@ export default {
     props: {
         product: {
             type: Object,
-            default: () => {},
+            default: () => { },
         },
         arcon: {
             type: Object,
             require: true,
-            default: () => {},
+            default: () => { },
         },
     },
     computed: {
@@ -76,6 +67,13 @@ export default {
     data() {
         return {
             quantity: 1,
+            arminfo: {
+                idarm: '',
+                cant: '',
+                cantdirec: 0,
+                constenv: 0,
+                cotid: '',
+            }
         };
     },
     methods: {
@@ -92,32 +90,73 @@ export default {
             this.quantity--;
             this.$store.dispatch('cotizacion/addcantidad', this.quantity);
         },
-        handleAddToCart(isBuyNow) {
-            if (this.cotizaciones.length == 0) {
+        async handleAddToCart(isBuyNow) {
+            if (localStorage.getItem('idcot') == null) {
                 this.$notify({
                     group: 'addCartSuccess',
                     title: 'Error',
-                    text: 'No existe una cotizacion para agregar el producto, por favor cree una',
+                    text: 'Seleccione o cree una cotizacion para añadir su arcon',
                     type: 'danger',
                 });
-            } else {
-                const cartItemsOnCookie = this.$cookies.get('cart', {
-                    parseJSON: true,
-                });
-                let existItem;
-                if (cartItemsOnCookie) {
-                    existItem = cartItemsOnCookie.cartItems.find(
-                        (item) => item.id === this.product.id
-                    );
-                    console.log(this.handleAddToCart);
-                }
-                let item = {
-                    id: this.product.id,
-                    quantity: this.quantity,
-                    price: this.product.price,
-                };
-                this.addItemToCart(item);
             }
+            // else if (localStorage.getItem('idcot') == null) {
+            //     this.$notify({
+            //         group: 'addCartSuccess',
+            //         title: 'Error',
+            //         text: 'Seleccione una cotizacion para agregar el arcon',
+            //         type: 'danger',
+            //     });
+            // }
+            else {
+                if (this.product == null) {
+                    console.log("El arcon tiene el id: " + this.$route.params.id)
+                    this.arminfo.idarm = this.$route.params.id
+                    this.arminfo.cant = this.quantity
+                    this.arminfo.cotid = localStorage.getItem('idcot')
+                    console.log("Se enviara")
+                    console.log(this.arminfo)
+                    let msg = await this.$store.dispatch("cotizacionarcon/addtocot", this.arminfo)
+                    this.$notify({
+                        group: 'addCartSuccess',
+                        title: 'Listo',
+                        text: msg,
+                        type: 'danger',
+                    });
+                }
+                else {
+                    console.log("El arcon tiene el id: " + this.product.id)
+                    this.arminfo.idarm = this.product.id
+                    this.arminfo.cant = this.quantity
+                    this.arminfo.cotid = localStorage.getItem('idcot')
+                    console.log("Se enviara")
+                    console.log(this.arminfo)
+                    let msg = await this.$store.dispatch("cotizacionarcon/addtocot", this.arminfo)
+                    this.$notify({
+                        group: 'addCartSuccess',
+                        title: 'Listo',
+                        text: msg,
+                        type: 'danger',
+                    });
+                }
+            }
+            // else {
+            //     const cartItemsOnCookie = this.$cookies.get('cart', {
+            //         parseJSON: true,
+            //     });
+            //     let existItem;
+            //     if (cartItemsOnCookie) {
+            //         existItem = cartItemsOnCookie.cartItems.find(
+            //             (item) => item.id === this.product.id
+            //         );
+            //         console.log(this.handleAddToCart);
+            //     }
+            //     let item = {
+            //         id: this.product.id,
+            //         quantity: this.quantity,
+            //         price: this.product.price,
+            //     };
+            //     this.addItemToCart(item);
+            // }
         },
         addItemToCart(payload) {
             this.quantity = 1;
@@ -151,6 +190,10 @@ export default {
                 this.$store.commit('product/setCartProducts', null);
             }
         },
+    },
+    created() {
+        console.log("tengo")
+        console.log(this.product)
     },
 };
 </script>

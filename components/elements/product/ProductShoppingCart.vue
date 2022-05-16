@@ -2,15 +2,17 @@
     <div class="ps-product--cart">
         <div class="ps-product__thumbnail">
             <nuxt-link :to="`/product/${product.id}`">
-                <img
-                    :src="`${baseUrl}${product.thumbnail.url}`"
-                    alt="martfury"
-                />
+                <img :src="product.img" alt="martfury" />
             </nuxt-link>
+            <!-- <div class="ps-product__content">
+                <nuxt-link :to="`/product/${product.id}`">
+                    <a class="ps-product__title">{{ product.nombre }}</a>
+                </nuxt-link>
+            </div> -->
         </div>
         <div class="ps-product__content">
             <nuxt-link :to="`/product/${product.id}`">
-                <a class="ps-product__title">{{ product.title }}</a>
+                <a class="ps-product__title">{{ product.nombre }}</a>
             </nuxt-link>
         </div>
     </div>
@@ -24,7 +26,7 @@ export default {
     props: {
         product: {
             type: Object,
-            default: () => {}
+            default: () => { }
         }
     },
     computed: {
@@ -35,4 +37,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
