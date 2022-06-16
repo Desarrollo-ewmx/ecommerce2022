@@ -25,17 +25,17 @@
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                 </template>
-                                <span>Editar</span>
+                                <span>Editar nombre</span>
                             </v-tooltip>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on, attrs }">
-                                    <nuxt-link to="/account/cotizarenvio">
+                                    <nuxt-link :to="`/account/cost/${cotizacion.id}`">
                                         <v-btn class="mx-2" fab dark small v-bind="attrs" v-on="on" color="green">
                                             <v-icon>mdi-check</v-icon>
                                         </v-btn>
                                     </nuxt-link>
                                 </template>
-                                <span>Ingresar</span>
+                                <span>Cotizar direcciones</span>
                             </v-tooltip>
 
                             <v-tooltip right>
@@ -46,7 +46,7 @@
                                         <v-icon dark>mdi-minus</v-icon>
                                     </v-btn>
                                 </template>
-                                <span>Borrar</span>
+                                <span>Borrar cotizacion</span>
                             </v-tooltip>
                         </td>
                     </tr>

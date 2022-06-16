@@ -1,5 +1,6 @@
 <template lang="html">
-<table class="table ps-table--responsive ps-table--shopping-cart">
+<div class="container" >
+<table class="table ps-table--responsive ps-table--shopping-cart" v-if="listacot.length > 0">
     <thead>
         <tr>
             <th width="30%">Armado</th>
@@ -54,7 +55,7 @@
             </td>
             <td data-label="Action">
                 <div>
-                    <v-btn href="#" @click.prevent="handleRemoveProductFromCart(product.registro)" class="btn " fab dark small color="red">
+                    <v-btn href="#" @click.prevent="deletearma(product.registro)" class="btn " fab dark small color="red">
                         <v-icon dark>
                             mdi-minus
                         </v-icon>
@@ -63,7 +64,10 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table>    
+<p v-else>Tu carrito esta vacio</p>
+</div>
+
 </template>
 
 <script>
@@ -237,30 +241,44 @@ export default {
             }
         },
 
-        async handleRemoveProductFromCart(registro) {
-            console.log("Vas a borrar: " + registro);
-            let msg = this.$store.dispatch('cotizacionarcon/deletearm', registro);
-            msg.then(value => {
+       async deletearma(registro){
+         let msg =   await this.handleRemoveProductFromCart(registro)
+           await this.handleRemoveProductFromCart(registro)
                 this.$notify({
                 group: 'addCartSuccess',
                 title: 'Eliminacion de arcon',
-                text: value,
+                text: msg,
                 type: 'danger',
             });
+        },
+
+        async handleRemoveProductFromCart(registro) {
+            console.log("Vas a borrar: " + registro);
+            let msg = this.$store.dispatch('cotizacionarcon/deletearm', registro);
+            let noti= ''
+            msg.then(value => {
+            //     this.$notify({
+            //     group: 'addCartSuccess',
+            //     title: 'Eliminacion de arcon',
+            //     text: value,
+            //     type: 'danger',
+            // });
+            noti = value
             }).catch(err => {
-                 this.$notify({
-                group: 'addCartSuccess',
-                title: 'Aviso',
-                text: err,
-                type: 'danger',
-            });
+            //      this.$notify({
+            //     group: 'addCartSuccess',
+            //     title: 'Aviso',
+            //     text: err,
+            //     type: 'danger',
+            // });
+            noti = value
             }); 
              await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
             let cotacti = this.cotizaciones.filter(x => x.id == localStorage.getItem('idcot'))
             console.log(cotacti)
             this.$store.dispatch('cotizacionarcon/getactiva', cotacti[0]);
             console.log("Se actualizo")
-            
+            return noti;
             //  await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
             //  let cotacti = this.cotizaciones.filter(x => x.id == localStorage.getItem('idcot'))
             // console.log(cotacti)
@@ -288,7 +306,8 @@ export default {
             this.listacot.length = 0
             let cotlist = this.cotizacion.arcones
             console.log("Tengo: " + cotlist.length)
-            for (let index = 0; index < cotlist.length; index++) {
+            if (cotlist.length > 0) {
+                for (let index = 0; index < cotlist.length; index++) {
                 this.listacot.push({
                     cantidad: cotlist[index].cantidad,
                     gama: cotlist[index].gama,
@@ -306,7 +325,12 @@ export default {
                     cantact: ''
                 })
             }
-            console.log(this.listacot)
+            console.log(this.listacot) 
+            }
+            else {
+                this.listacot = []
+            }
+           
         },
     },
     watch: {

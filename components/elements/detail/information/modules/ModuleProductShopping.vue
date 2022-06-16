@@ -1,52 +1,55 @@
 <<template lang="html">
-    <div class="ps-product__shopping">
-        <div>
-            <h5>Cantidad: </h5>
-            <figure>
-                <div class="form-group--number">
-                    <button class="up" @click.prevent="handleIncreaseQuantity">
-                        <i class="fa fa-plus"></i>
+<div class="ps-product__shopping">
+    <div>
+        <h5>Cantidad: </h5>
+        <figure>
+            <div class="form-group--number">
+                <button class="up" @click.prevent="handleIncreaseQuantity">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <div v-if="quantity > 1">
+                    <button class="down" @click.prevent="handleDescreaseQuantity">
+                        <i class="fa fa-minus"></i>
                     </button>
-                    <div v-if="quantity > 1">
-                        <button class="down" @click.prevent="handleDescreaseQuantity">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <input v-model="quantity" class="form-control" type="text" min=1 style="display:block"
-                        @change="checkquantity" />
                 </div>
-            </figure>
-            <!-- Seleccionar cotización y dar aceptar para la que se va a pintar en el carrito  -->
-            <b-button class="ml-2 mt-2" variant="info" size="lg" @click.prevent="handleAddToCart">Agregar</b-button>
-        </div>
-        <div>
-            <div>
-                <nuxt-link size="lg" class="ps-btn mt-2 ml-2 float-right" to="/account/cotizaciones">
-                    Crear nueva cotizacion
-                </nuxt-link>
+                <input v-model="quantity" class="form-control" type="text" min=1 style="display:block" @change="checkquantity" />
             </div>
-        </div>
-        <figcaption>
-            <v-btn v-if="incart > 0" color="success" class="mt-2" to="/account/shopping-cart">
-                <i class="icon-bag2" style="font-size:2em"></i> <span class="" style="font-size:2em">{{ incart }}</span>
-            </v-btn>
-        </figcaption>
+        </figure>
+        <!-- Seleccionar cotización y dar aceptar para la que se va a pintar en el carrito  -->
+        <b-button class="ml-2 mt-2" variant="info" size="lg" @click.prevent="handleAddToCart">Agregar</b-button>
     </div>
+    <div>
+        <div>
+            <nuxt-link size="lg" class="ps-btn mt-2 ml-2 float-right" to="/account/cotizaciones">
+                Crear nueva cotizacion
+            </nuxt-link>
+        </div>
+    </div>
+    <figcaption>
+        <v-btn v-if="incart > 0" color="success" class="mt-2" to="/account/shopping-cart">
+            <i class="icon-bag2" style="font-size:2em"></i> <span class="" style="font-size:2em">{{ incart }}</span>
+        </v-btn>
+    </figcaption>
+</div>
 </template>
+
 <script>
-import { mapState, mapActions } from 'vuex';
+import {
+    mapState,
+    mapActions
+} from 'vuex';
 
 export default {
     name: 'ModuleProductShopping',
     props: {
         product: {
             type: Object,
-            default: () => { },
+            default: () => {},
         },
         arcon: {
             type: Object,
             require: true,
-            default: () => { },
+            default: () => {},
         },
     },
     computed: {
@@ -62,6 +65,8 @@ export default {
         ...mapState({
             cartItems: (state) => state.cart.cartItems,
             cotizaciones: (state) => state.cotizacion.cotizaciones,
+            cotact: (state) => state.cotizacionarcon.cotizacionactv,
+
         }),
     },
     data() {
@@ -73,7 +78,18 @@ export default {
                 cantdirec: 0,
                 constenv: 0,
                 cotid: '',
-            }
+                validflag: false,
+            },
+            listacot: '',
+            idcotpoint: '',
+            cotizacionarcon: {
+                cantTotalArc: 0,
+                constenv: 0.0,
+                idcot: '',
+                cantdirec: 0,
+                id: null,
+                id_registro: ''
+            },
         };
     },
     methods: {
@@ -108,35 +124,118 @@ export default {
             //     });
             // }
             else {
+                this.listacot = this.cotact.arcones
                 if (this.product == null) {
-                    console.log("El arcon tiene el id: " + this.$route.params.id)
-                    this.arminfo.idarm = this.$route.params.id
-                    this.arminfo.cant = this.quantity
-                    this.arminfo.cotid = localStorage.getItem('idcot')
-                    console.log("Se enviara")
-                    console.log(this.arminfo)
-                    let msg = await this.$store.dispatch("cotizacionarcon/addtocot", this.arminfo)
-                    this.$notify({
-                        group: 'addCartSuccess',
-                        title: 'Listo',
-                        text: msg,
-                        type: 'danger',
-                    });
-                }
-                else {
-                    console.log("El arcon tiene el id: " + this.product.id)
-                    this.arminfo.idarm = this.product.id
-                    this.arminfo.cant = this.quantity
-                    this.arminfo.cotid = localStorage.getItem('idcot')
-                    console.log("Se enviara")
-                    console.log(this.arminfo)
-                    let msg = await this.$store.dispatch("cotizacionarcon/addtocot", this.arminfo)
-                    this.$notify({
-                        group: 'addCartSuccess',
-                        title: 'Listo',
-                        text: msg,
-                        type: 'danger',
-                    });
+                    for (let index = 0; index < this.listacot.length; index++) {
+                        if (this.listacot[index].id == this.$route.params.id) {
+                            this.validflag = true
+                            this.idcotpoint = index
+                            console.log("El valor de la bandera es: " + this.validflag)
+                            console.log("Lo encontre en: " + this.idcotpoint)
+                        } 
+
+                    }
+                    if (this.validflag) {
+                        console.log("No se puede agregar por que ya existe")
+                        console.log(this.listacot[this.idcotpoint])
+                        let cotizacion = this.listacot[this.idcotpoint]
+                        console.log("Actualizare " + cotizacion.nombre + " de " + cotizacion.cantidad + " a " + this.quantity);
+                        let activa = this.cotact
+                        console.log("La cotizacion a editar es")
+                        console.log(activa.serie)
+                        this.cotizacionarcon.idcot = this.cotact.id
+                        this.cotizacionarcon.id = cotizacion.id
+                        this.cotizacionarcon.cantTotalArc = this.quantity + cotizacion.cantidad
+                        this.cotizacionarcon.id_registro = cotizacion.id_registro
+                        console.log("Enviare")
+                        console.log(this.cotizacionarcon)
+                        let msg = await this.$store.dispatch(
+                            'cotizacionarcon/editarm',
+                            this.cotizacionarcon
+                        );
+                        await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
+                        let cotacti = this.cotizaciones.filter(x => x.id == localStorage.getItem('idcot'))
+                        console.log(cotacti)
+                        this.$store.dispatch('cotizacionarcon/getactiva', cotacti[0]);
+                        console.log("Se actualizo")
+                        this.$notify({
+                            group: 'addCartSuccess',
+                            title: 'Listo',
+                            text: "Arcones añadidos",
+                            type: 'danger',
+                        });
+                        this.validflag = false
+                    } else {
+                        console.log("El arcon tiene el id: " + this.$route.params.id)
+                        this.arminfo.idarm = this.$route.params.id
+                        this.arminfo.cant = this.quantity
+                        this.arminfo.cotid = localStorage.getItem('idcot')
+                        console.log("Se enviara")
+                        console.log(this.arminfo)
+                        let msg = await this.$store.dispatch("cotizacionarcon/addtocot", this.arminfo)
+                        await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
+                        this.$notify({
+                            group: 'addCartSuccess',
+                            title: 'Listo',
+                            text: msg,
+                            type: 'danger',
+                        });
+                        this.validflag = false
+                    }
+                } else {
+                    for (let index = 0; index < this.listacot.length; index++) {
+                        if (this.listacot[index].id == this.$route.params.id) {
+                            this.validflag = true
+                            console.log("El valor de la bandera es: " + this.validflag)
+                        }
+                    }
+                    if (this.validflag) {
+                        console.log("No se puede agregar por que ya existe")
+                        console.log(this.listacot[this.idcotpoint])
+                        let cotizacion = this.listacot[this.idcotpoint]
+                        console.log("Actualizare " + cotizacion.nombre + " de " + cotizacion.cantidad + " a " + this.quantity);
+                        let activa = this.cotact
+                        console.log("La cotizacion a editar es")
+                        console.log(activa.serie)
+                        this.cotizacionarcon.idcot = this.cotact.id
+                        this.cotizacionarcon.id = cotizacion.id
+                        this.cotizacionarcon.cantTotalArc = this.quantity
+                        this.cotizacionarcon.id_registro = cotizacion.id_registro
+                        console.log("Enviare")
+                        console.log(this.cotizacionarcon)
+                        let msg = await this.$store.dispatch(
+                            'cotizacionarcon/editarm',
+                            this.cotizacionarcon
+                        );
+                        await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
+                        let cotacti = this.cotizaciones.filter(x => x.id == localStorage.getItem('idcot'))
+                        console.log(cotacti)
+                        this.$store.dispatch('cotizacionarcon/getactiva', cotacti[0]);
+                        console.log("Se actualizo")
+                        this.$notify({
+                            group: 'addCartSuccess',
+                            title: 'Listo',
+                            text: "Arcones añadidos",
+                            type: 'danger',
+                        });
+                        this.validflag = false
+                    } else {
+                        console.log("El arcon tiene el id: " + this.product.id)
+                        this.arminfo.idarm = this.product.id
+                        this.arminfo.cant = this.quantity
+                        this.arminfo.cotid = localStorage.getItem('idcot')
+                        console.log("Se enviara")
+                        console.log(this.arminfo)
+                        let msg = await this.$store.dispatch("cotizacionarcon/addtocot", this.arminfo)
+                        await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
+                        this.$notify({
+                            group: 'addCartSuccess',
+                            title: 'Listo',
+                            text: msg,
+                            type: 'danger',
+                        });
+                        this.validflag = false
+                    }
                 }
             }
             // else {

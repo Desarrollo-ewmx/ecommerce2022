@@ -12,6 +12,8 @@
         <h3>Cotizacion activar</h3>
         <h2>{{cotizacionesactv.nom}} - {{cotizacionesactv.serie}}</h2> -->
         <!-- Tabla de cotizaciones por producto -->
+        <h3>Su cotizacion activa es:</h3>
+        <h2  v-b-tooltip.hover title="Cotizacion seleccionada, para cambiarla usa el selector en la parte superior de la pagina">{{cotizacionesactv.nom}} - {{cotizacionesactv.serie}}</h2>
         <module-tabla-cotizaciones-producto />
 
         <module-product-shopping :product="product" :arcon="arcon" />

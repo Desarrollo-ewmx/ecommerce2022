@@ -34,7 +34,7 @@
                     <img :src ="arcon.ruta_Completa"/>
                 </div>
                 <div>
-                    <p align="center">{{arcon.sku}}</p>
+                    <p align="center">SKU: AC-{{arcon.id}}</p> 
                     <!-- <h3>{{arcon}}</h3> -->
                 </div>
                  <!-- <div class="ps-product__variants">

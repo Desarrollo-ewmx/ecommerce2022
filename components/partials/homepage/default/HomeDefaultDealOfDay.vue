@@ -119,7 +119,12 @@ export default {
             var resp = await this.$store.dispatch('arcones/setarmados');
             const result = this.$store.getters['arcones/getproducts'];
             console.log('Tiene el arreglo: ' + result.length);
-            var num = Math.random() * (result.length - 10 - 0);
+            if(result.length <= 10){
+                var num = Math.random() * (result.length - 0);
+            }
+            else { 
+                var num = Math.random() * (result.length - 10 - 0);
+            }
             console.log('Saque el numero: ' + Math.round(num));
             console.log(result[Math.round(num)]);
             const limit = Math.round(num);

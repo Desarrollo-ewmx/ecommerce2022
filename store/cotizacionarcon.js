@@ -10,7 +10,8 @@ export const state = () => ({
         cp: null
     },
     cotizaciones: [],
-    cotizacionactv: []
+    cotizacionactv: [],
+    infocoti: []
 });
 
 export const mutations = {
@@ -26,6 +27,11 @@ export const mutations = {
         state.cotizacionactv = payload;
         console.log(payload.id);
         localStorage.setItem('idcot', payload.id);
+    },
+    setcotinfo(state, payload) {
+        state.infocoti = payload;
+        console.log('La cotizacion elegida es');
+        console.log(state.infocoti);
     }
 };
 
@@ -42,6 +48,32 @@ export const actions = {
             );
             const result = JSON.parse(JSON.stringify(response.data));
             const msg = JSON.parse(JSON.stringify(result.message));
+            return msg;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    async infocot({ commit, state }, payload) {
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            // console.log(
+            //     `${apiURL}/cot?estat=${payload.status}&tot_arm=${payload.cantTotalArc}&cost_env=${payload.constenv}&desc=${payload.desc}&sub_total=${payload.subtotal}&iva=${payload.iva}&com=${payload.comision}&tot=${payload.total}&user_id=${payload.id}&desc_cot=nada&token=${token}`
+            // );
+            const response = await Repository.get(
+                `${apiURL}/cotuserid?id=${payload.cotid}&user_id=${payload.userid}&token=${token}`
+            );
+            console.log(
+                `${apiURL}/cotuserid?id=${payload.cotid}&user_id=${payload.userid}&token=${token}`
+            );
+            const result = JSON.parse(
+                JSON.stringify(response.data.data.cotizaciones)
+            );
+            console.log('Esta es la cotizacion');
+            console.log(result);
+            commit('setcotinfo', result);
+            const msg = JSON.parse(JSON.stringify(response.data.message));
             return msg;
         } catch (error) {
             console.log(error);

@@ -2,7 +2,7 @@
 <div class="container">
     <div v-if="codevalid == 1">
         <b-form-group label="Cotizacion activa" label-for="cotizacion">
-            <b-form-select v-model="cotizacionactv" class="form-control col-md-11 mr-4" id="cotizacion" @change="cotactiva(cotizacionactv)">
+            <b-form-select v-model="cotizacionactv" class="form-control col-md-13 mr-5" style="width: 120%" id="cotizacion" @change="cotactiva(cotizacionactv)">
                 <template #first>
                     <b-form-select-option :value="null" disabled>Seleccione</b-form-select-option>
                     <b-form-select-option v-for="(cotizacion, index) in cotizaciones" :value="cotizacion" v-bind:key="index">{{ cotizacion.nom }} {{ cotizacion.serie }}

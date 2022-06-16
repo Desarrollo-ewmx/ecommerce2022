@@ -72,7 +72,7 @@ export default {
 
     server: {
         port: 4002,
-        host: 'localhost',
-        proxy: 'http://35.87.217.218/api'
+        host: 'localhost'
+        // host: '0.0.0.0'
     }
 };

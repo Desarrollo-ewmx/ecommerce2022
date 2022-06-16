@@ -1,9 +1,15 @@
 <template lang="html">
     <div class="ps-cart--mini">
-        <a class="header__extra" href="#">
+        <a v-if="cotizacionesactv.arcones_totales < 99" class="header__extra" href="#">
             <i class="icon-bag2"></i>
             <span v-if="cotizacionesactv != null">
                 <i>{{ cotizacionesactv.arcones_totales }}</i>
+            </span>
+        </a>
+        <a v-if="cotizacionesactv.arcones_totales > 99" class="header__extra" href="#">
+            <i class="icon-bag2"></i>
+            <span v-if="cotizacionesactv != null">
+                <i>+99</i>
             </span>
         </a>
         <div v-if="cotizaciones.length > 0" class="ps-cart__content">
