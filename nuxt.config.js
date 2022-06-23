@@ -40,7 +40,8 @@ export default {
         { src: '~/plugins/lazyLoad.js', ssr: false },
         { src: '~/plugins/vue-carousel.js', mode: 'client' },
         { src: '~/plugins/vue-stepper', mode: 'client' },
-        { src: '~/plugins/jw-pagination.js', mode: 'client' }
+        { src: '~/plugins/jw-pagination.js', mode: 'client' },
+        { src: '~/plugins/vue-ip.js', mode: 'client' }
     ],
 
     buildModules: [

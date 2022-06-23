@@ -23,23 +23,6 @@
                         <td class="price">${{ arcon.precio_unitario_sin_iva }}</td>
                         <td>pendiente</td>
                         <td>
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-btn
-                                        class="mx-2"
-                                        fab
-                                        dark
-                                        small
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="green"
-                                    >
-                                        <v-icon>mdi-check</v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>Ingresar</span>
-                            </v-tooltip>
-
                             <v-tooltip right>
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn
@@ -103,6 +86,7 @@
                 @ok="handleDetok"
             ></b-modal>
         </div>
+        <!-- <vue-ip :ip="ip" :port="port" :on-change="change" theme="material"></vue-ip> -->
     </div>
 </template>
 
@@ -113,6 +97,8 @@ export default {
     name: 'Tablaenvios',
     data() {
         return {
+             ip: '127.0.0.1', // or null
+            port: '8888', // or null
             nameState: null,
             cotItem: {
                 name: '',
@@ -142,6 +128,9 @@ export default {
     },
 
     methods: {
+            change(ip, port, valid) {
+            console.log(ip, port, valid);
+        },
         checkFormValidity() {
             const valid = this.$refs.form.checkValidity();
             this.nameState = valid;
