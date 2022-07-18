@@ -3,9 +3,9 @@
         <nuxt-link to="/page/blank">
             <a class="report">Report Abuse</a>
         </nuxt-link>
-        <p><strong>SKU:</strong> SF1133569600-1</p>
+        <!-- <p><strong>SKU:</strong> SF1133569600-1</p> -->
         <p class="categories">
-            <strong> Categories:</strong>
+            <strong> Categorias:</strong>
             <nuxt-link to="/shop">
                 <a>Consumer Electronics</a>
             </nuxt-link>

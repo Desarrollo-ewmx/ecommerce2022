@@ -162,6 +162,7 @@ export default {
                 type: 'danger',
             });
         },
+        
         updateTotal(index, cantidad) {
             let busca = true;
             for (let a = 0; a < cantidad.length; a++) {

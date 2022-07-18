@@ -1,14 +1,13 @@
 <template lang="html">
-    <div>
-        <div class="table-responsive-sm">
+        <div class="table-responsive-sm tableFixHead" style="height: 500px;">
             <table class="table table-hover table-fixed ps-table--shopping-cart">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th style="text-align:center">Nombre</th>
                         <th>Serie</th>
                         <th>Total de arcones</th>
                         <th>Total - Precio</th>
-                        <th>Acciones</th>
+                        <th style="text-align:center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +36,17 @@
                                 </template>
                                 <span>Cotizar direcciones</span>
                             </v-tooltip>
+                            <v-tooltip top>
+
+                                <template v-slot:activator="{ on, attrs }">
+                                    <nuxt-link :to="`/account/order/${cotizacion.id}`">
+                                        <v-btn class="mx-2" fab dark small v-bind="attrs" v-on="on" color="green">
+                                            <v-icon>mdi-file-eye-outline</v-icon>
+                                        </v-btn>
+                                    </nuxt-link>
+                                </template>
+                                <span>Ver resumen de cotizacion</span>
+                            </v-tooltip>
 
                             <v-tooltip right>
                                 <template v-slot:activator="{ on, attrs }">
@@ -53,13 +63,7 @@
                 </tbody>
             </table>
             <hr />
-        </div>
-        <div>
-            <b-button class="ps-btn" v-b-modal.modal-prevent-closing>Nueva Cotización</b-button>
-
-            <!-- <pre>Store: {{ cotizaciones }}</pre> -->
-
-            <b-modal id="modal-prevent-closing" ref="modal" title="Ingresa el nombre de la cotización"
+              <b-modal id="modal-prevent-closing" ref="modal" title="Ingresa el nombre de la cotización"
                 @show="resetModal" @hidden="resetModal" @ok="handleOk">
                 <form ref="form" @submit.stop.prevent="handleSubmit">
                     <b-form-group label="Cotización" label-for="name-input"
@@ -71,7 +75,12 @@
             <b-modal id="modal-prevent-delete" ref="modal" title="¿Desea eliminar esta cotizacion?" @show="resetModal"
                 @hidden="resetModal" @ok="handleDetok"></b-modal>
         </div>
-    </div>
+            <!-- <pre>Store: {{ cotizaciones }}</pre> -->
+        <!-- <div>
+            <b-button class="ps-btn" v-b-modal.modal-prevent-closing>Nueva Cotización</b-button>
+        </div> -->
+
+         
 </template>
 
 <script>
@@ -192,8 +201,15 @@ export default {
 
         async deleteItem(id) {
             console.log('Borrare el id: ' + id);
-            await this.$store.dispatch('cotizacionarcon/deletecot', id);
+            let msg = await this.$store.dispatch('cotizacionarcon/deletecot', id);
+           console.log(msg)
             await this.$store.dispatch('cotizacionarcon/getCot', localStorage.id);
+            this.$notify({
+                group: 'addCartSuccess',
+                title: 'Hecho',
+                text: msg,
+                type: 'danger',
+            });
             this.$nextTick(() => {
                 this.$bvModal.hide('modal-prevent-delete');
             });
@@ -222,3 +238,7 @@ export default {
     },
 };
 </script>
+<style scoped>
+.tableFixHead          { overflow: auto; height: 100px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+</style>

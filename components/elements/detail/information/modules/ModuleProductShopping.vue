@@ -185,6 +185,8 @@ export default {
                 } else {
                     for (let index = 0; index < this.listacot.length; index++) {
                         if (this.listacot[index].id == this.$route.params.id) {
+                            console.log(this.listacot[index])
+                            this.idcotpoint = index
                             this.validflag = true
                             console.log("El valor de la bandera es: " + this.validflag)
                         }
@@ -238,24 +240,6 @@ export default {
                     }
                 }
             }
-            // else {
-            //     const cartItemsOnCookie = this.$cookies.get('cart', {
-            //         parseJSON: true,
-            //     });
-            //     let existItem;
-            //     if (cartItemsOnCookie) {
-            //         existItem = cartItemsOnCookie.cartItems.find(
-            //             (item) => item.id === this.product.id
-            //         );
-            //         console.log(this.handleAddToCart);
-            //     }
-            //     let item = {
-            //         id: this.product.id,
-            //         quantity: this.quantity,
-            //         price: this.product.price,
-            //     };
-            //     this.addItemToCart(item);
-            // }
         },
         addItemToCart(payload) {
             this.quantity = 1;

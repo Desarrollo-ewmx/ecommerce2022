@@ -4,19 +4,17 @@
     <div class="ps-order-tracking">
         <div class="container">
             <div class="ps-section__header">
-                <h3>Cotizacion de envios para cotizacion {{cotname.nom}}-{{cotname.serie}}</h3>
+                <h3>Resumen de la cotizacion {{cotname.nom}}-{{cotname.serie}}</h3>
                 <div align="center">
-                <h4>En este apartado ingresa los siguientes datos para cotizar el envió de tus arcones</h4>
+                <h4>A continuación, se muestra un resumen de tu cotización</h4>
             </div>
             </div>
             <div>
-                <Cotizarcp />
+                <!-- <Cotizarcp /> -->
+                <Resumencot/>
             </div>
-            <Tablaenvios />
-            <!-- <p>{{info}}</p> -->
-            <!-- <Cotizaciones class="p-2" /> -->
-
-            <!-- <TablaCotizaciones class="p-0" /> -->
+            <!-- <Tablaenvios /> -->
+      
         </div>
     </div>
 </section>
@@ -27,9 +25,8 @@ import {
     mapState
 } from 'vuex';
 import BreadCrumb from '~/components/elements/BreadCrumb';
-import Tablaenvios from '~/components/partials/account/modules/Tablaenvios';
+import Resumencot from '~/components/partials/account/modules/Resumencot';
 import HeaderMobile from '~/components/shared/mobile/HeaderMobile';
-import Cotizarcp from '~/components/partials/account/modules/Cotizarcp';
 
 export default {
     middleware: 'validation',
@@ -37,8 +34,7 @@ export default {
     components: {
         HeaderMobile,
         BreadCrumb,
-        Tablaenvios,
-        Cotizarcp,
+        Resumencot
     },
     computed: {
         ...mapState({
@@ -52,7 +48,7 @@ export default {
                     url: '/',
                 },
                 {
-                    text: 'Cotizaciones',
+                    text: 'Resumen',
                 },
             ],
             value: '',

@@ -1,5 +1,6 @@
 import Repository, { serializeQuery } from '~/repositories/Repository.js';
 import { apiURL } from '~/repositories/Repository';
+import { copoMex } from '~/repositories/Repository';
 export const state = () => ({
     cotizacionarcon: {
         nombreCot: null,
@@ -11,7 +12,10 @@ export const state = () => ({
     },
     cotizaciones: [],
     cotizacionactv: [],
-    infocoti: []
+    infocoti: [],
+    infocp: [],
+    direcload: [],
+    delaux: null
 });
 
 export const mutations = {
@@ -19,6 +23,9 @@ export const mutations = {
         payload = JSON.parse(JSON.stringify(payload));
         console.log('Desde mutation', { payload });
         state.cotizacionarcon.push(payload);
+    },
+    setdelaux(state, payload) {
+        state.delaux = payload;
     },
     setcotizaciones(state, payload) {
         state.cotizaciones = payload;
@@ -32,6 +39,16 @@ export const mutations = {
         state.infocoti = payload;
         console.log('La cotizacion elegida es');
         console.log(state.infocoti);
+    },
+    setcp(state, payload) {
+        state.infocp = payload;
+        console.log('El cp tiene la siguiente informacion');
+        console.log(state.infocp);
+    },
+    setdirec(state, payload) {
+        state.direcload = payload;
+        console.log('La cotizacion tiene cargadas las direcciones');
+        console.log(state.direcload);
     }
 };
 
@@ -142,17 +159,36 @@ export const actions = {
             commit('setcotizacionact', payload);
         }
     },
+    getaux({ commit, state }, payload) {
+        commit('setdelaux', payload);
+    },
+    async deletearmcot({ commit, state }, payload) {
+        try {
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.post(
+                `${apiURL}/borrardir?id=${payload.reg}&token=${token}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            const cont = JSON.parse(JSON.stringify(result.message));
+            console.log('Eliminado');
+            console.log(cont);
+            // commit('setdelaux', payload.aux);
+            return cont;
+        } catch (error) {
+            console.log(error);
+        }
+    },
     async deletecot({ commit, state }, payload) {
         try {
             const response = await Repository.get(
                 `${apiURL}/cotizaciond/${payload}`
-            ).then(response => {
-                const result = JSON.parse(JSON.stringify(response.data));
-                const cont = JSON.parse(JSON.stringify(result.data.message));
-                console.log('Obtenido');
-                console.log(cont);
-                return cont;
-            });
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            const cont = JSON.parse(JSON.stringify(result.message));
+            console.log('Eliminado');
+            console.log(cont);
+            return cont;
         } catch (error) {
             console.log(error);
         }
@@ -174,14 +210,14 @@ export const actions = {
             console.log(error);
         }
     },
-    async editarm({ commit, state }, payload) {
+    async direcctable({ commit, state }, payload) {
         try {
             console.log('Me llego esto');
             console.log(payload);
             const token =
                 '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
             const response = await Repository.post(
-                `${apiURL}/upcotarmados?id_armado=${payload.id}&cant=${payload.cantTotalArc}&cant_direc_carg=${payload.cantdirec}&cost_env=${payload.constenv}&cotizacion_id=${payload.idcot}&id=${payload.id_registro}&token=${token}`
+                `${apiURL}/tabdir?id_armado=${payload.id}&cant=${payload.cantTotalArc}&cant_direc_carg=${payload.cantdirec}&cost_env=${payload.constenv}&cotizacion_id=${payload.idcot}&id=${payload.id_registro}&token=${token}`
             );
             const result = JSON.parse(JSON.stringify(response.data));
             const msg = JSON.parse(JSON.stringify(result.message));
@@ -191,6 +227,60 @@ export const actions = {
             console.log(error);
         }
     },
+    async cpset({ commit, state }, payload) {
+        try {
+            console.log('Me llego esto');
+            console.log(payload);
+            const token = 'e1c91dd1-8b56-44c6-aaba-df21d802e3e1';
+            const response = await Repository.get(
+                `${copoMex}/info_cp/${payload}?type=simplified&token=${token}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            // const msg = JSON.parse(JSON.stringify(result.message));
+            console.log(result);
+            commit('setcp', result);
+            const msg = 'Ya termine';
+            return msg;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async adddirecc({ commit, state }, payload) {
+        try {
+            console.log('Me llego esto');
+            console.log(payload);
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.post(
+                `${apiURL}/nuedir?id_registro_cot_arm=${payload.id}&est=${payload.est}&created_at_dir=${payload.usermail}&cantidad=${payload.cant}&cp=${payload.cp}&ciudad=${payload.city}&colonia=${payload.col}&del_o_munic=${payload.muni}&token=${token}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data));
+            const msg = JSON.parse(JSON.stringify(result.message));
+            console.log(result);
+            return msg;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async getdirecc({ commit, state }, payload) {
+        try {
+            console.log('Me llego esto');
+            console.log(payload);
+            const token =
+                '3RRZ4Czrz9KDMMG5Xo3IzaCU5WV7ZluKDYhNiw9lNZvUdRgFDnNUePyByJF8LVgIXPEE5gzJgQrzqa5RFaPu69oK893wNFWpY6xEoVLtzmNH3seFecjKBCHrjJXkTFo0DjDrR13NKF1R4uTxhxDnSw';
+            const response = await Repository.get(
+                `${apiURL}/verdir?id=${payload.id}&user_id=${payload.user}`
+            );
+            const result = JSON.parse(JSON.stringify(response.data.data));
+            commit('setdirec', result);
+            const msg = JSON.parse(JSON.stringify(response.data.message));
+            console.log(result);
+            return msg;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
     async deletearm({ commit, state }, payload) {
         try {
             console.log('Me llego esto');

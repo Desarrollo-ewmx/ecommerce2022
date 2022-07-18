@@ -41,7 +41,8 @@ export default {
         { src: '~/plugins/vue-carousel.js', mode: 'client' },
         { src: '~/plugins/vue-stepper', mode: 'client' },
         { src: '~/plugins/jw-pagination.js', mode: 'client' },
-        { src: '~/plugins/vue-ip.js', mode: 'client' }
+        { src: '~/plugins/vue-ip.js', mode: 'client' },
+        { src: '~/plugins/vue-beautiful-chat.js', mode: 'client' }
     ],
 
     buildModules: [
